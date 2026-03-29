@@ -1,0 +1,8 @@
+[31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:209 (message):
+  ament_cmake_symlink_install_programs() can't find
+  '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance/scripts/collision_monitor.py'
+Call Stack (most recent call first):
+  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:331 (ament_cmake_symlink_install_programs)
+  cmake_install.cmake:46 (include)
+
+[0m

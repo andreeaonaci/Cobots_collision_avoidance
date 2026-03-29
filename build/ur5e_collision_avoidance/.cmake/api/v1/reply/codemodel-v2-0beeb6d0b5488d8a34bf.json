@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-f783d220e021a6ac345b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ur5e_collision_avoidance",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_ur5e_collision_avoidance_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_ur5e_collision_avoidance_egg-5f4c6c83bf2977845ebd.json",
+					"name" : "ament_cmake_python_build_ur5e_collision_avoidance_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_symlink_ur5e_collision_avoidance::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_symlink_ur5e_collision_avoidance-4000fa0f8bcf1ef0a8de.json",
+					"name" : "ament_cmake_python_symlink_ur5e_collision_avoidance",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-79bad7c98b6003d85dde.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ur5e_collision_avoidance_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ur5e_collision_avoidance_uninstall-946ea72cf72d923e4bf8.json",
+					"name" : "ur5e_collision_avoidance_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance",
+		"source" : "/home/deea/ros2_ws/src/ur5e_collision_avoidance"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

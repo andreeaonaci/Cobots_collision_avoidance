@@ -1,0 +1,84 @@
+[0.014s] Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[0.117s] Built target ament_cmake_python_symlink_ur5e_collision_avoidance
+[0.350s] running egg_info
+[0.351s] writing ur5e_collision_avoidance.egg-info/PKG-INFO
+[0.351s] writing dependency_links to ur5e_collision_avoidance.egg-info/dependency_links.txt
+[0.352s] writing top-level names to ur5e_collision_avoidance.egg-info/top_level.txt
+[0.354s] reading manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'
+[0.355s] writing manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'
+[0.376s] Built target ament_cmake_python_build_ur5e_collision_avoidance_egg
+[0.385s] Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[0.395s] Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance
+[0.401s] -- Install configuration: ""
+[0.402s] -- Execute custom install script
+[0.403s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.sh
+[0.403s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.dsv
+[0.404s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/PKG-INFO
+[0.404s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/SOURCES.txt
+[0.404s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/dependency_links.txt
+[0.404s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/top_level.txt
+[0.405s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/__init__.py
+[0.405s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/collision_monitor.py
+[0.405s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/robot1_controller.py
+[0.405s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/robot2_controller.py
+[0.406s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/scenario_orchestrator.py
+[0.406s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/setup.py
+[0.406s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/ur5e_collision_avoidance/collision_monitor.py
+[0.406s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/ur5e_collision_avoidance/robot1_controller.py
+[0.406s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/ur5e_collision_avoidance/robot2_controller.py
+[0.407s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/ur5e_collision_avoidance/scenario_orchestrator.py
+[0.407s] [33mCMake Warning (dev) at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:67 (file):
+[0.407s]   Policy CMP0009 is not set: FILE GLOB_RECURSE calls should not follow
+[0.407s]   symlinks by default.  Run "cmake --help-policy CMP0009" for policy details.
+[0.408s]   Use the cmake_policy command to set the policy and suppress this warning.
+[0.408s] Call Stack (most recent call first):
+[0.408s]   ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:334 (ament_cmake_symlink_install_directory)
+[0.408s]   cmake_install.cmake:46 (include)
+[0.408s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[0.408s] [0m
+[0.409s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/build/.built_by
+[0.409s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/build/COLCON_IGNORE
+[0.409s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/.colcon_install_layout
+[0.409s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/COLCON_IGNORE
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/_local_setup_util_ps1.py
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/_local_setup_util_sh.py
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/local_setup.bash
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/local_setup.ps1
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/local_setup.sh
+[0.410s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/local_setup.zsh
+[0.411s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/setup.bash
+[0.411s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/setup.ps1
+[0.411s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/setup.sh
+[0.411s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/install/setup.zsh
+[0.411s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/COLCON_IGNORE
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/build_2026-03-29_00-50-58/events.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/build_2026-03-29_00-50-58/logger_all.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/latest/events.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/latest/logger_all.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/latest_build/events.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/log/latest_build/logger_all.log
+[0.412s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/simulation.launch.py
+[0.412s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/launch/visualize.launch.py
+[0.419s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/config/collision_avoidance_params.yaml
+[0.419s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/config/dual_ur5e_controllers.yaml
+[0.419s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/worlds/ur5e_workspace.world
+[0.419s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/urdf/dual_ur5e.urdf.xacro
+[0.419s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/rviz/dual_ur5e.rviz
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ament_index/resource_index/package_run_dependencies/ur5e_collision_avoidance
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ament_index/resource_index/parent_prefix_path/ur5e_collision_avoidance
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/ament_prefix_path.sh
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/ament_prefix_path.dsv
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/path.sh
+[0.420s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/path.dsv
+[0.421s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/local_setup.bash
+[0.421s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/local_setup.sh
+[0.421s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/local_setup.zsh
+[0.421s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/local_setup.dsv
+[0.421s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.dsv
+[0.430s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ament_index/resource_index/packages/ur5e_collision_avoidance
+[0.430s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/cmake/ur5e_collision_avoidanceConfig.cmake
+[0.430s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/cmake/ur5e_collision_avoidanceConfig-version.cmake
+[0.430s] -- Up-to-date symlink: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.xml
+[0.460s] Listing '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance'...
+[0.460s] Listing '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts'...
+[0.466s] Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance

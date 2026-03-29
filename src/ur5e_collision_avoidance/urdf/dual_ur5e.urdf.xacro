@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+  dual_ur5e.urdf.xacro
+  =====================
+  Spawns two UR5e robots side-by-side on the shared worktable.
+  Robot 1 (ur5e_1) : base at x = -0.70 m, facing +X  (yaw = 0)
+  Robot 2 (ur5e_2) : base at x = +0.70 m, facing -X  (yaw = π)
+
+  Uses the official ur_description xacro macros.
+  Requires:  ros-humble-ur-description  (or rolling equivalent)
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dual_ur5e">
+
+  <!-- ── Parameters ─────────────────────────────────────────── -->
+  <xacro:arg name="use_fake_hardware"        default="false"/>
+  <xacro:arg name="fake_sensor_commands"     default="false"/>
+  <xacro:arg name="simulation_controllers"   default=""/>
+
+  <!-- ── Import UR5e macro ──────────────────────────────────── -->
+  <xacro:include filename="$(find ur_description)/urdf/ur_macro.xacro"/>
+
+  <!-- ── World link ─────────────────────────────────────────── -->
+  <link name="world"/>
+
+  <!-- ════════════════════════════════════════════════════════
+       ROBOT 1  —  base at (-0.70, 0, 0.78) facing +X
+       ════════════════════════════════════════════════════════ -->
+  <joint name="robot1_base_joint" type="fixed">
+    <parent link="world"/>
+    <child  link="robot1_base_link"/>
+    <!-- Pedestal height 0.78 m -->
+    <origin xyz="-0.70 0 0.78" rpy="0 0 0"/>
+  </joint>
+
+  <xacro:ur_robot
+    name              = "robot1"
+    tf_prefix         = "robot1_"
+    parent            = "robot1_base_link"
+    joint_limits_parameters_file = "$(find ur_description)/config/ur5e/joint_limits.yaml"
+    kinematics_parameters_file   = "$(find ur_description)/config/ur5e/default_kinematics.yaml"
+    physical_parameters_file     = "$(find ur_description)/config/ur5e/physical_parameters.yaml"
+    visual_parameters_file       = "$(find ur_description)/config/ur5e/visual_parameters.yaml"
+    use_fake_hardware            = "$(arg use_fake_hardware)"
+    fake_sensor_commands         = "$(arg fake_sensor_commands)"
+    sim_gazebo                   = "true"
+    simulation_controllers       = "$(arg simulation_controllers)"
+  >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:ur_robot>
+
+  <!-- Base link placeholder for robot 1 -->
+  <link name="robot1_base_link"/>
+
+  <!-- ════════════════════════════════════════════════════════
+       ROBOT 2  —  base at (+0.70, 0, 0.78) facing -X (yaw = π)
+       ════════════════════════════════════════════════════════ -->
+  <joint name="robot2_base_joint" type="fixed">
+    <parent link="world"/>
+    <child  link="robot2_base_link"/>
+    <origin xyz="0.70 0 0.78" rpy="0 0 3.14159265"/>
+  </joint>
+
+  <xacro:ur_robot
+    name              = "robot2"
+    tf_prefix         = "robot2_"
+    parent            = "robot2_base_link"
+    joint_limits_parameters_file = "$(find ur_description)/config/ur5e/joint_limits.yaml"
+    kinematics_parameters_file   = "$(find ur_description)/config/ur5e/default_kinematics.yaml"
+    physical_parameters_file     = "$(find ur_description)/config/ur5e/physical_parameters.yaml"
+    visual_parameters_file       = "$(find ur_description)/config/ur5e/visual_parameters.yaml"
+    use_fake_hardware            = "$(arg use_fake_hardware)"
+    fake_sensor_commands         = "$(arg fake_sensor_commands)"
+    sim_gazebo                   = "true"
+    simulation_controllers       = "$(arg simulation_controllers)"
+  >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:ur_robot>
+
+  <!-- Base link placeholder for robot 2 -->
+  <link name="robot2_base_link"/>
+
+  <!-- ── Gazebo material overrides (colour-code the two arms) ─ -->
+  <gazebo reference="robot1_upper_arm_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="robot1_forearm_link">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="robot2_upper_arm_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="robot2_forearm_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+</robot>

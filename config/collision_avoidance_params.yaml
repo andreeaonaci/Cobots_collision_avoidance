@@ -1,0 +1,62 @@
+# ──────────────────────────────────────────────────────────────────
+#  Collision Avoidance Parameters
+#  File: config/collision_avoidance_params.yaml
+# ──────────────────────────────────────────────────────────────────
+
+collision_monitor:
+  ros__parameters:
+
+    # ── Monitoring ────────────────────────────────────────────
+    monitor_rate_hz: 50.0          # How often to check distances
+
+    # ── Distance thresholds (end-effector to end-effector, metres) ──
+    danger_zone_m:    0.20         # Hard stop threshold
+    slow_zone_m:      0.50         # Begin speed reduction
+    resume_zone_m:    0.60         # Safe to resume after stop
+
+    # ── Speed scaling ─────────────────────────────────────────
+    #    Linear ramp from 1.0 (at slow_zone_m) to min_speed_factor (at danger_zone_m)
+    min_speed_factor:     0.05     # 5% speed at edge of danger zone
+    normal_speed_factor:  1.0      # 100% speed in free space
+
+    # ── Which robot yields ────────────────────────────────────
+    #    "robot2" = Robot 2 always stops; Robot 1 passes through
+    #    "nearest_to_target" = whichever is further from goal stops
+    yield_robot: "robot2"
+
+    # ── Resume behaviour ──────────────────────────────────────
+    resume_delay_sec: 0.5          # Wait after other robot clears before resuming
+
+    # ── Logging ───────────────────────────────────────────────
+    log_events: true
+    log_file: "/tmp/collision_avoidance_events.json"
+
+    # ── TF frame names ────────────────────────────────────────
+    robot1_ee_frame: "robot1_tool0"
+    robot2_ee_frame: "robot2_tool0"
+    world_frame:     "world"
+
+
+scenario_orchestrator:
+  ros__parameters:
+    # Joint targets for Robot 1 (moves left→right across table, +X)
+    robot1_waypoints:
+      # Each waypoint: [shoulder_pan, shoulder_lift, elbow, wrist1, wrist2, wrist3]
+      waypoint_home:    [0.0,    -1.5708,  1.5708,  -1.5708,  -1.5708,  0.0]
+      waypoint_extend:  [0.0,    -1.0,     1.2,     -1.2,     -1.5708,  0.0]
+      waypoint_reach:   [0.0,    -0.6,     0.8,     -0.8,     -1.5708,  0.0]
+      waypoint_cross:   [0.0,    -0.3,     0.5,     -0.5,     -1.5708,  0.0]
+
+    # Joint targets for Robot 2 (mirrors robot 1, approaches from +X)
+    robot2_waypoints:
+      waypoint_home:    [0.0,    -1.5708,  1.5708,  -1.5708,  -1.5708,  0.0]
+      waypoint_extend:  [0.0,    -1.0,     1.2,     -1.2,     -1.5708,  0.0]
+      waypoint_reach:   [0.0,    -0.6,     0.8,     -0.8,     -1.5708,  0.0]
+      waypoint_cross:   [0.0,    -0.3,     0.5,     -0.5,     -1.5708,  0.0]
+
+    # Nominal duration per waypoint segment (seconds)
+    segment_duration_sec: 4.0
+
+    # Auto-start scenario when all controllers are ready
+    auto_start: true
+    start_delay_sec: 3.0

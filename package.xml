@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ur5e_collision_avoidance</name>
+  <version>1.0.0</version>
+  <description>
+    Two UR5e cobots in Gazebo on a collision course.
+    Proximity detection triggers speed reduction → one robot stops →
+    the other passes → stopped robot resumes.
+  </description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- Build -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <!-- ROS 2 core -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+
+  <!-- Messages / services -->
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>trajectory_msgs</depend>
+  <depend>control_msgs</depend>
+  <depend>visualization_msgs</depend>
+
+  <!-- TF -->
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <!-- MoveIt 2 -->
+  <depend>moveit_ros_planning_interface</depend>
+  <depend>moveit_ros_planning</depend>
+  <depend>moveit_core</depend>
+
+  <!-- Controllers -->
+  <depend>ros2_controllers</depend>
+  <depend>joint_trajectory_controller</depend>
+  <depend>joint_state_broadcaster</depend>
+
+  <!-- Gazebo -->
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros2_control</depend>
+  <depend>gazebo_plugins</depend>
+
+  <!-- UR robot description -->
+  <depend>ur_description</depend>
+  <depend>ur_moveit_config</depend>
+
+  <!-- Launch -->
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+  <depend>launch_xml</depend>
+  <depend>xacro</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

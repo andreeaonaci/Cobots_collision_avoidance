@@ -1,0 +1,85 @@
+[0.496s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'ur5e_collision_avoidance', '--symlink-install']
+[0.496s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['ur5e_collision_avoidance'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7feb709effd0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7feb70b79420>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7feb70b79420>>)
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.058s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.058s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/deea/ros2_ws/src/ur5e_collision_avoidance'
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.058s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.080s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'ur5e_collision_avoidance'
+[1.080s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.080s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.080s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.080s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.080s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.135s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.135s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.142s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 363 installed packages in /opt/ros/humble
+[1.143s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_args' from command line to 'None'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_target' from command line to 'None'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_clean_cache' from command line to 'False'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_clean_first' from command line to 'False'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'cmake_force_configure' from command line to 'False'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'ament_cmake_args' from command line to 'None'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'catkin_cmake_args' from command line to 'None'
+[1.188s] Level 5:colcon.colcon_core.verb:set package 'ur5e_collision_avoidance' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.188s] DEBUG:colcon.colcon_core.verb:Building package 'ur5e_collision_avoidance' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance', 'merge_install': False, 'path': '/home/deea/ros2_ws/src/ur5e_collision_avoidance', 'symlink_install': True, 'test_result_base': None}
+[1.188s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.190s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.190s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/deea/ros2_ws/src/ur5e_collision_avoidance' with build type 'ament_cmake'
+[1.191s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/deea/ros2_ws/src/ur5e_collision_avoidance'
+[1.200s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.201s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.201s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.214s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/deea/ros2_ws/src/ur5e_collision_avoidance -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance
+[11.164s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/deea/ros2_ws/src/ur5e_collision_avoidance -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance
+[11.167s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[11.508s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[11.517s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance
+[11.599s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ur5e_collision_avoidance)
+[11.600s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance
+[11.614s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance' for CMake module files
+[11.614s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance' for CMake config files
+[11.615s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib'
+[11.615s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/bin'
+[11.615s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/pkgconfig/ur5e_collision_avoidance.pc'
+[11.615s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/lib/python3.10/site-packages'
+[11.616s] Level 1:colcon.colcon_core.environment:checking '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/bin'
+[11.616s] INFO:colcon.colcon_core.shell:Creating package script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.ps1'
+[11.617s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.dsv'
+[11.618s] INFO:colcon.colcon_core.shell:Creating package script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.sh'
+[11.619s] INFO:colcon.colcon_core.shell:Creating package script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.bash'
+[11.620s] INFO:colcon.colcon_core.shell:Creating package script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/package.zsh'
+[11.621s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/colcon-core/packages/ur5e_collision_avoidance)
+[11.633s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[11.633s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[11.633s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '1'
+[11.633s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[11.766s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[11.766s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[11.766s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[11.766s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[11.766s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.FileNotFound: Failed to connect to socket /run/user/1000/bus: No such file or directory
+[11.767s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[11.767s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/local_setup.ps1'
+[11.771s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/_local_setup_util_ps1.py'
+[11.772s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/setup.ps1'
+[11.773s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/local_setup.sh'
+[11.774s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/_local_setup_util_sh.py'
+[11.774s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/setup.sh'
+[11.775s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/local_setup.bash'
+[11.776s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/setup.bash'
+[11.777s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/local_setup.zsh'
+[11.779s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/setup.zsh'

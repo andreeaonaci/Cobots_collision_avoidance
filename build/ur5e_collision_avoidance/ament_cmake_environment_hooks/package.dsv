@@ -1,0 +1,4 @@
+source;share/ur5e_collision_avoidance/local_setup.bash
+source;share/ur5e_collision_avoidance/local_setup.dsv
+source;share/ur5e_collision_avoidance/local_setup.sh
+source;share/ur5e_collision_avoidance/local_setup.zsh

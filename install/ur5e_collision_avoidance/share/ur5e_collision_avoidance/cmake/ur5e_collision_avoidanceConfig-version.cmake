@@ -1,0 +1,1 @@
+/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance/ament_cmake_core/ur5e_collision_avoidanceConfig-version.cmake

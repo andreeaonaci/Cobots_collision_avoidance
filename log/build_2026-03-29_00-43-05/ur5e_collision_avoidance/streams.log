@@ -1,0 +1,87 @@
+[0.023s] Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/deea/ros2_ws/src/ur5e_collision_avoidance -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance
+[0.421s] -- The C compiler identification is GNU 11.4.0
+[1.160s] -- The CXX compiler identification is GNU 11.4.0
+[1.662s] -- Detecting C compiler ABI info
+[1.906s] -- Detecting C compiler ABI info - done
+[1.914s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.919s] -- Detecting C compile features
+[1.919s] -- Detecting C compile features - done
+[1.925s] -- Detecting CXX compiler ABI info
+[2.163s] -- Detecting CXX compiler ABI info - done
+[2.170s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[2.171s] -- Detecting CXX compile features
+[2.171s] -- Detecting CXX compile features - done
+[2.198s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.343s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.418s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[2.476s] -- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)
+[2.733s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[2.743s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[2.759s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[2.785s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.816s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.913s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.919s] -- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[4.396s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[6.014s] -- Found FastRTPS: /opt/ros/humble/include  
+[8.878s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[8.892s] -- Looking for pthread.h
+[9.108s] -- Looking for pthread.h - found
+[9.109s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[9.318s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[9.319s] -- Found Threads: TRUE  
+[9.426s] -- Found rclpy: 3.3.21 (/opt/ros/humble/share/rclpy/cmake)
+[9.429s] -- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)
+[9.460s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[9.492s] -- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)
+[9.526s] -- Found tf2: 0.25.19 (/opt/ros/humble/share/tf2/cmake)
+[9.545s] -- Found tf2_ros: 0.25.19 (/opt/ros/humble/share/tf2_ros/cmake)
+[9.814s] -- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[9.913s] -- Added test 'copyright' to check source files copyright and LICENSE
+[9.925s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[9.926s] -- Configured cppcheck include dirs: 
+[9.926s] -- Configured cppcheck exclude dirs and/or files: 
+[9.930s] -- Added test 'cpplint' to check C / C++ code against the Google style
+[9.931s] -- Configured cpplint exclude dirs and/or files: 
+[9.932s] -- Added test 'flake8' to check Python code syntax and style conventions
+[9.935s] -- Added test 'lint_cmake' to check CMake code style
+[9.937s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[9.944s] -- Added test 'uncrustify' to check C / C++ code style
+[9.944s] -- Configured uncrustify additional arguments: 
+[9.946s] -- Added test 'xmllint' to check XML markup files
+[9.950s] -- Configuring done
+[9.959s] -- Generating done
+[9.963s] -- Build files have been written to: /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance
+[9.973s] Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/deea/ros2_ws/src/ur5e_collision_avoidance -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance
+[9.975s] Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[10.032s] Built target ament_cmake_python_symlink_ur5e_collision_avoidance
+[10.276s] running egg_info
+[10.276s] creating ur5e_collision_avoidance.egg-info
+[10.277s] writing ur5e_collision_avoidance.egg-info/PKG-INFO
+[10.277s] writing dependency_links to ur5e_collision_avoidance.egg-info/dependency_links.txt
+[10.277s] writing top-level names to ur5e_collision_avoidance.egg-info/top_level.txt
+[10.278s] writing manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'
+[10.282s] reading manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'
+[10.282s] writing manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'
+[10.305s] Built target ament_cmake_python_build_ur5e_collision_avoidance_egg
+[10.317s] Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance -- -j12 -l12
+[10.326s] Invoking command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance
+[10.333s] -- Install configuration: ""
+[10.334s] -- Execute custom install script
+[10.335s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.sh
+[10.344s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.dsv
+[10.355s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/PKG-INFO
+[10.364s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/SOURCES.txt
+[10.372s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/dependency_links.txt
+[10.380s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/top_level.txt
+[10.389s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/__init__.py
+[10.397s] -- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/setup.py
+[10.406s] [31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:209 (message):
+[10.407s]   ament_cmake_symlink_install_programs() can't find
+[10.407s]   '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance/scripts/collision_monitor.py'
+[10.407s] Call Stack (most recent call first):
+[10.407s]   ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:331 (ament_cmake_symlink_install_programs)
+[10.407s]   cmake_install.cmake:46 (include)
+[10.407s] 
+[10.407s] [0m
+[10.409s] Invoked command in '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance

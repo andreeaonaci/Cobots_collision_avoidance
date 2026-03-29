@@ -1,0 +1,1 @@
+/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance/ament_cmake_python/ur5e_collision_avoidance/ur5e_collision_avoidance.egg-info/top_level.txt

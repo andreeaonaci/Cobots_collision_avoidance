@@ -1,0 +1,199 @@
+[0.000000] (-) TimerEvent: {}
+[0.000911] (ur5e_collision_avoidance) JobQueued: {'identifier': 'ur5e_collision_avoidance', 'dependencies': OrderedDict()}
+[0.002042] (ur5e_collision_avoidance) JobStarted: {'identifier': 'ur5e_collision_avoidance'}
+[0.020510] (ur5e_collision_avoidance) JobProgress: {'identifier': 'ur5e_collision_avoidance', 'progress': 'cmake'}
+[0.023274] (ur5e_collision_avoidance) Command: {'cmd': ['/usr/bin/cmake', '/home/deea/ros2_ws/src/ur5e_collision_avoidance', '-DAMENT_CMAKE_SYMLINK_INSTALL=1', '-DCMAKE_INSTALL_PREFIX=/home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance'], 'cwd': '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('USER', 'deea'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/deea'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/deea/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'deea'), ('NAME', 'DESKTOP-55TME7M'), ('WSL_INTEROP', '/run/WSL/59448_interop'), ('SUMO_HOME', '/usr/share/sumo'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/deea/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/Deea/miniconda3/envs/env_cobot:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/bin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/Python314/Scripts:/mnt/c/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_swa/bin:/mnt/c/Users/Deea/miniconda3/condabin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Users/Deea/AppData/Local/Programs/Python/Launcher:/mnt/c/Users/Deea/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Deea/.dotnet/tools:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/nodejs:/snap/bin'), ('PYTHON_EXECUTABLE', '/usr/bin/python3'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/deea/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('_CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('PWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance'), ('CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('CONDA_PREFIX', ''), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('Python3_EXECUTABLE', '/usr/bin/python3'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.100026] (-) TimerEvent: {}
+[0.200394] (-) TimerEvent: {}
+[0.300747] (-) TimerEvent: {}
+[0.401086] (-) TimerEvent: {}
+[0.422527] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.501217] (-) TimerEvent: {}
+[0.601542] (-) TimerEvent: {}
+[0.701866] (-) TimerEvent: {}
+[0.802263] (-) TimerEvent: {}
+[0.902655] (-) TimerEvent: {}
+[1.003079] (-) TimerEvent: {}
+[1.103455] (-) TimerEvent: {}
+[1.161743] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.203577] (-) TimerEvent: {}
+[1.303991] (-) TimerEvent: {}
+[1.404335] (-) TimerEvent: {}
+[1.504670] (-) TimerEvent: {}
+[1.605096] (-) TimerEvent: {}
+[1.664130] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.705287] (-) TimerEvent: {}
+[1.805703] (-) TimerEvent: {}
+[1.906194] (-) TimerEvent: {}
+[1.908144] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.916247] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.920520] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.921474] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.926597] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.006332] (-) TimerEvent: {}
+[2.106732] (-) TimerEvent: {}
+[2.165041] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.172218] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.172612] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.172995] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.200040] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[2.206889] (-) TimerEvent: {}
+[2.307269] (-) TimerEvent: {}
+[2.344757] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[2.407463] (-) TimerEvent: {}
+[2.419535] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[2.477905] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rclcpp: 16.0.18 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[2.507674] (-) TimerEvent: {}
+[2.608109] (-) TimerEvent: {}
+[2.708469] (-) TimerEvent: {}
+[2.735257] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[2.745340] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[2.760915] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[2.786797] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.808735] (-) TimerEvent: {}
+[2.817809] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.908882] (-) TimerEvent: {}
+[2.915041] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[2.921220] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.10 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[3.009113] (-) TimerEvent: {}
+[3.109512] (-) TimerEvent: {}
+[3.209884] (-) TimerEvent: {}
+[3.310287] (-) TimerEvent: {}
+[3.410692] (-) TimerEvent: {}
+[3.511113] (-) TimerEvent: {}
+[3.611521] (-) TimerEvent: {}
+[3.711952] (-) TimerEvent: {}
+[3.812276] (-) TimerEvent: {}
+[3.912673] (-) TimerEvent: {}
+[4.013010] (-) TimerEvent: {}
+[4.113348] (-) TimerEvent: {}
+[4.213688] (-) TimerEvent: {}
+[4.314058] (-) TimerEvent: {}
+[4.398024] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[4.414217] (-) TimerEvent: {}
+[4.514542] (-) TimerEvent: {}
+[4.614928] (-) TimerEvent: {}
+[4.715563] (-) TimerEvent: {}
+[4.815929] (-) TimerEvent: {}
+[4.916313] (-) TimerEvent: {}
+[5.016694] (-) TimerEvent: {}
+[5.117120] (-) TimerEvent: {}
+[5.217485] (-) TimerEvent: {}
+[5.317819] (-) TimerEvent: {}
+[5.418220] (-) TimerEvent: {}
+[5.518617] (-) TimerEvent: {}
+[5.618980] (-) TimerEvent: {}
+[5.719325] (-) TimerEvent: {}
+[5.819645] (-) TimerEvent: {}
+[5.920011] (-) TimerEvent: {}
+[6.015419] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[6.020165] (-) TimerEvent: {}
+[6.120598] (-) TimerEvent: {}
+[6.221021] (-) TimerEvent: {}
+[6.321386] (-) TimerEvent: {}
+[6.421687] (-) TimerEvent: {}
+[6.522016] (-) TimerEvent: {}
+[6.622490] (-) TimerEvent: {}
+[6.722947] (-) TimerEvent: {}
+[6.823353] (-) TimerEvent: {}
+[6.923772] (-) TimerEvent: {}
+[7.024160] (-) TimerEvent: {}
+[7.124680] (-) TimerEvent: {}
+[7.225020] (-) TimerEvent: {}
+[7.325442] (-) TimerEvent: {}
+[7.425936] (-) TimerEvent: {}
+[7.526435] (-) TimerEvent: {}
+[7.626844] (-) TimerEvent: {}
+[7.727218] (-) TimerEvent: {}
+[7.827544] (-) TimerEvent: {}
+[7.927936] (-) TimerEvent: {}
+[8.028324] (-) TimerEvent: {}
+[8.128692] (-) TimerEvent: {}
+[8.229143] (-) TimerEvent: {}
+[8.329477] (-) TimerEvent: {}
+[8.429844] (-) TimerEvent: {}
+[8.530192] (-) TimerEvent: {}
+[8.630523] (-) TimerEvent: {}
+[8.730960] (-) TimerEvent: {}
+[8.831378] (-) TimerEvent: {}
+[8.879738] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[8.893560] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[8.931628] (-) TimerEvent: {}
+[9.032037] (-) TimerEvent: {}
+[9.109873] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[9.110554] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[9.132211] (-) TimerEvent: {}
+[9.232553] (-) TimerEvent: {}
+[9.320118] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[9.321071] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[9.332668] (-) TimerEvent: {}
+[9.428039] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found rclpy: 3.3.21 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[9.431348] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found geometry_msgs: 4.9.1 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[9.432802] (-) TimerEvent: {}
+[9.461804] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[9.494165] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found visualization_msgs: 4.9.1 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[9.527696] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found tf2: 0.25.19 (/opt/ros/humble/share/tf2/cmake)\n'}
+[9.532995] (-) TimerEvent: {}
+[9.546639] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.19 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[9.633157] (-) TimerEvent: {}
+[9.733550] (-) TimerEvent: {}
+[9.815929] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.15 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[9.833656] (-) TimerEvent: {}
+[9.914677] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[9.927143] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[9.927572] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[9.927631] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[9.932478] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[9.932585] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[9.933810] (-) TimerEvent: {}
+[9.934396] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[9.937138] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[9.939284] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257\n"}
+[9.946139] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[9.946259] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[9.948348] (ur5e_collision_avoidance) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[9.951728] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Configuring done\n'}
+[9.961279] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Generating done\n'}
+[9.964841] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Build files have been written to: /home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance\n'}
+[9.974778] (ur5e_collision_avoidance) CommandEnded: {'returncode': 0}
+[9.977171] (ur5e_collision_avoidance) JobProgress: {'identifier': 'ur5e_collision_avoidance', 'progress': 'build'}
+[9.977252] (ur5e_collision_avoidance) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance', '--', '-j12', '-l12'], 'cwd': '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('USER', 'deea'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/deea'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/deea/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'deea'), ('NAME', 'DESKTOP-55TME7M'), ('WSL_INTEROP', '/run/WSL/59448_interop'), ('SUMO_HOME', '/usr/share/sumo'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/deea/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/Deea/miniconda3/envs/env_cobot:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/bin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/Python314/Scripts:/mnt/c/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_swa/bin:/mnt/c/Users/Deea/miniconda3/condabin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Users/Deea/AppData/Local/Programs/Python/Launcher:/mnt/c/Users/Deea/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Deea/.dotnet/tools:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/nodejs:/snap/bin'), ('PYTHON_EXECUTABLE', '/usr/bin/python3'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/deea/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('_CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('PWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance'), ('CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('CONDA_PREFIX', ''), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('Python3_EXECUTABLE', '/usr/bin/python3'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[10.033971] (-) TimerEvent: {}
+[10.034400] (ur5e_collision_avoidance) StdoutLine: {'line': b'Built target ament_cmake_python_symlink_ur5e_collision_avoidance\n'}
+[10.134170] (-) TimerEvent: {}
+[10.234593] (-) TimerEvent: {}
+[10.277604] (ur5e_collision_avoidance) StdoutLine: {'line': b'running egg_info\n'}
+[10.278218] (ur5e_collision_avoidance) StdoutLine: {'line': b'creating ur5e_collision_avoidance.egg-info\n'}
+[10.278763] (ur5e_collision_avoidance) StdoutLine: {'line': b'writing ur5e_collision_avoidance.egg-info/PKG-INFO\n'}
+[10.279058] (ur5e_collision_avoidance) StdoutLine: {'line': b'writing dependency_links to ur5e_collision_avoidance.egg-info/dependency_links.txt\n'}
+[10.279497] (ur5e_collision_avoidance) StdoutLine: {'line': b'writing top-level names to ur5e_collision_avoidance.egg-info/top_level.txt\n'}
+[10.279993] (ur5e_collision_avoidance) StdoutLine: {'line': b"writing manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'\n"}
+[10.283554] (ur5e_collision_avoidance) StdoutLine: {'line': b"reading manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'\n"}
+[10.284098] (ur5e_collision_avoidance) StdoutLine: {'line': b"writing manifest file 'ur5e_collision_avoidance.egg-info/SOURCES.txt'\n"}
+[10.307362] (ur5e_collision_avoidance) StdoutLine: {'line': b'Built target ament_cmake_python_build_ur5e_collision_avoidance_egg\n'}
+[10.318792] (ur5e_collision_avoidance) CommandEnded: {'returncode': 0}
+[10.319076] (ur5e_collision_avoidance) JobProgress: {'identifier': 'ur5e_collision_avoidance', 'progress': 'install'}
+[10.328205] (ur5e_collision_avoidance) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance'], 'cwd': '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('CONDA_PROMPT_MODIFIER', ''), ('USER', 'deea'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/deea'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('_CONDA_ROOT', '/home/deea/miniconda3'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'deea'), ('NAME', 'DESKTOP-55TME7M'), ('WSL_INTEROP', '/run/WSL/59448_interop'), ('SUMO_HOME', '/usr/share/sumo'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/deea/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/Deea/miniconda3/envs/env_cobot:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_cobot/bin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/Python314/Scripts:/mnt/c/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/mingw-w64/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/usr/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Library/bin:/mnt/c/Users/Deea/miniconda3/envs/env_swa/Scripts:/mnt/c/Users/Deea/miniconda3/envs/env_swa/bin:/mnt/c/Users/Deea/miniconda3/condabin:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand:/mnt/c/Users/Deea/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/dotnet:/mnt/c/Users/Deea/AppData/Local/Programs/Python/Launcher:/mnt/c/Users/Deea/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Deea/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Deea/.dotnet/tools:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/nodejs:/snap/bin'), ('PYTHON_EXECUTABLE', '/usr/bin/python3'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/deea/miniconda3/bin/python'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('CONDA_DEFAULT_ENV', ''), ('_CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('PWD', '/home/deea/ros2_ws/src/ur5e_collision_avoidance/build/ur5e_collision_avoidance'), ('CONDA_EXE', '/home/deea/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('CONDA_PREFIX', ''), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('Python3_EXECUTABLE', '/usr/bin/python3'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[10.334766] (-) TimerEvent: {}
+[10.335200] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[10.335785] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[10.336856] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.sh\n'}
+[10.346065] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/share/ur5e_collision_avoidance/environment/pythonpath.dsv\n'}
+[10.356796] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/PKG-INFO\n'}
+[10.365463] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[10.373688] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[10.381911] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance-1.0.0-py3.10.egg-info/top_level.txt\n'}
+[10.390765] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/__init__.py\n'}
+[10.399410] (ur5e_collision_avoidance) StdoutLine: {'line': b'-- Symlinking: /home/deea/ros2_ws/src/ur5e_collision_avoidance/install/ur5e_collision_avoidance/local/lib/python3.10/dist-packages/ur5e_collision_avoidance/scripts/setup.py\n'}
+[10.408397] (ur5e_collision_avoidance) StderrLine: {'line': b'\x1b[31mCMake Error at ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:209 (message):\n'}
+[10.408556] (ur5e_collision_avoidance) StderrLine: {'line': b"  ament_cmake_symlink_install_programs() can't find\n"}
+[10.408618] (ur5e_collision_avoidance) StderrLine: {'line': b"  '/home/deea/ros2_ws/src/ur5e_collision_avoidance/ur5e_collision_avoidance/scripts/collision_monitor.py'\n"}
+[10.408672] (ur5e_collision_avoidance) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[10.408722] (ur5e_collision_avoidance) StderrLine: {'line': b'  ament_cmake_symlink_install/ament_cmake_symlink_install.cmake:331 (ament_cmake_symlink_install_programs)\n'}
+[10.408772] (ur5e_collision_avoidance) StderrLine: {'line': b'  cmake_install.cmake:46 (include)\n'}
+[10.408821] (ur5e_collision_avoidance) StderrLine: {'line': b'\n'}
+[10.408869] (ur5e_collision_avoidance) StderrLine: {'line': b'\x1b[0m\n'}
+[10.410916] (ur5e_collision_avoidance) CommandEnded: {'returncode': 1}
+[10.433225] (ur5e_collision_avoidance) JobEnded: {'identifier': 'ur5e_collision_avoidance', 'rc': 1}
+[10.435414] (-) TimerEvent: {}
+[10.444533] (-) EventReactorShutdown: {}

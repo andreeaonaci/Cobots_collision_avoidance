@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UR5e Live Simulator</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;background:#0d0f14;color:#e8eaf0;font-family:'JetBrains Mono',monospace;font-size:12px;overflow:hidden;}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.25}}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#12151c;border-bottom:1px solid rgba(255,255,255,.08);}
+.logo{font-size:11px;font-weight:700;letter-spacing:.1em;display:flex;align-items:center;gap:7px;}
+.hdr-dot{width:7px;height:7px;border-radius:50%;}
+.badge{padding:2px 8px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.08em;}
+.layout{display:grid;grid-template-columns:1fr 290px;height:calc(100vh - 39px);}
+.left{display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,.07);}
+.scene-wrap{flex:1;position:relative;background:#070910;overflow:hidden;}
+.overlay{position:absolute;background:rgba(7,9,16,.9);border:1px solid rgba(255,255,255,.12);border-radius:5px;font-weight:700;letter-spacing:.05em;}
+.state-bar{display:flex;border-top:1px solid rgba(255,255,255,.07);}
+.ss{flex:1;text-align:center;padding:5px 2px;font-size:8px;border-right:1px solid rgba(255,255,255,.05);transition:background .3s;}
+.ss:last-child{border-right:none;}
+.ss.active{background:rgba(255,255,255,.07);}
+.chart-row{height:110px;border-top:1px solid rgba(255,255,255,.07);padding:7px 10px 4px;background:#0d0f14;}
+.right{display:flex;flex-direction:column;overflow-y:auto;}
+.panel{border-bottom:1px solid rgba(255,255,255,.07);padding:10px 13px;}
+.pt{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#6b7280;margin-bottom:8px;}
+.kpi-g{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px;}
+.kpi{background:#161920;border-radius:5px;padding:7px 9px;}
+.kpi-l{font-size:9px;color:#6b7280;display:block;margin-bottom:2px;}
+.kpi-v{font-size:17px;font-weight:700;}
+.cr{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+.cl{font-size:10px;color:#8892a4;min-width:68px;}
+.cv{font-size:10px;min-width:32px;text-align:right;}
+input[type=range]{flex:1;accent-color:#4a90d9;}
+.br{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+button{padding:5px 10px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.15);background:transparent;color:#e8eaf0;letter-spacing:.04em;transition:all .15s;}
+button:hover{background:rgba(255,255,255,.07);}
+.btn-g{border-color:#45b87c;color:#45b87c;}
+.btn-g:hover{background:rgba(69,184,124,.12);}
+.btn-r{border-color:#e05a5a;color:#e05a5a;}
+.btn-r:hover{background:rgba(224,90,90,.12);}
+.rr{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+.rd{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.rn{font-size:10px;min-width:55px;}
+.sb-bg{flex:1;height:4px;background:rgba(255,255,255,.07);border-radius:2px;}
+.sb{height:4px;border-radius:2px;transition:width .2s,background .2s;}
+.sv{font-size:10px;min-width:30px;text-align:right;}
+.jr{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.jl{font-size:9px;color:#6b7280;min-width:36px;}
+.jb-bg{flex:1;height:2px;background:rgba(255,255,255,.07);border-radius:2px;}
+.jb{height:2px;border-radius:2px;transition:width .15s;}
+.jv{font-size:9px;min-width:36px;text-align:right;color:#9ca3af;}
+.li{display:flex;gap:6px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:baseline;}
+.lt{color:#4b5563;font-size:9px;min-width:38px;}
+.ltag{font-size:8px;font-weight:700;padding:1px 5px;border-radius:2px;min-width:50px;text-align:center;}
+.lm{font-size:10px;color:#9ca3af;flex:1;}
+select{flex:1;background:#161920;border:1px solid rgba(255,255,255,.1);color:#e8eaf0;border-radius:4px;padding:3px 6px;font-size:10px;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">
+    <div class="hdr-dot" id="hdrDot" style="background:#45b87c;animation:p 1.6s infinite;"></div>
+    UR5E DUAL COBOT — LIVE SIMULATOR
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;">
+    <span style="color:#4b5563;font-size:9px;">ROS2 + Gazebo</span>
+    <span id="rosBadge" class="badge" style="background:rgba(107,114,128,.1);color:#6b7280;border:1px solid rgba(107,114,128,.3);">ROS: OFF</span>
+    <span class="badge" id="hdrBadge" style="background:rgba(69,184,124,.15);color:#45b87c;border:1px solid rgba(69,184,124,.3);">IDLE</span>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="left">
+    <div class="scene-wrap">
+      <canvas id="scene3d" style="width:100%;height:100%;display:block;"></canvas>
+      <div id="distOv" class="overlay" style="top:10px;left:50%;transform:translateX(-50%);padding:5px 14px;font-size:12px;">EE dist: —</div>
+      <div id="stateOv" class="overlay" style="top:10px;left:10px;padding:4px 10px;font-size:9px;letter-spacing:.08em;color:#45b87c;">IDLE</div>
+      <div id="pauseOv" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(7,9,16,.6);">
+        <div style="font-size:22px;font-weight:700;color:#f0a030;letter-spacing:.1em;">PAUSED</div>
+      </div>
+    </div>
+    <div class="state-bar">
+      <div class="ss" id="ss0"><div style="color:#45b87c;margin-bottom:1px;">&#9654;</div>MOVING</div>
+      <div class="ss" id="ss1"><div style="color:#f0a030;margin-bottom:1px;">&#11835;</div>SLOWING</div>
+      <div class="ss" id="ss2"><div style="color:#e05a5a;margin-bottom:1px;">&#9632;</div>STOPPED</div>
+      <div class="ss" id="ss3"><div style="color:#4a90d9;margin-bottom:1px;">&#8635;</div>RESUMING</div>
+      <div class="ss" id="ss4"><div style="color:#45b87c;margin-bottom:1px;">&#10003;</div>DONE</div>
+    </div>
+    <div class="chart-row">
+      <div style="font-size:9px;color:#6b7280;margin-bottom:3px;text-transform:uppercase;letter-spacing:.1em;">end-effector distance (m)</div>
+      <div style="position:relative;height:80px;"><canvas id="distChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="panel">
+      <div class="pt">live metrics</div>
+      <div class="kpi-g">
+        <div class="kpi"><span class="kpi-l">distance</span><div class="kpi-v" id="kDist" style="color:#4a90d9;">—</div></div>
+        <div class="kpi"><span class="kpi-l">state</span><div class="kpi-v" id="kState" style="font-size:12px;color:#45b87c;">IDLE</div></div>
+      </div>
+      <div class="rr"><div class="rd" style="background:#4a90d9;"></div><span class="rn">Robot 1</span>
+        <div class="sb-bg"><div class="sb" id="sb1" style="width:100%;background:#45b87c;"></div></div>
+        <span class="sv" id="sv1">100%</span></div>
+      <div class="rr"><div class="rd" style="background:#e05a5a;"></div><span class="rn">Robot 2</span>
+        <div class="sb-bg"><div class="sb" id="sb2" style="width:100%;background:#45b87c;"></div></div>
+        <span class="sv" id="sv2">100%</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="pt">controls</div>
+      <div class="br">
+        <button class="btn-g" onclick="startSim()">&#9654; Start</button>
+        <button onclick="pauseSim()">&#9646;&#9646; Pause</button>
+        <button class="btn-r" onclick="resetSim()">&#8635; Reset</button>
+      </div>
+      <div class="cr"><span class="cl">R1 speed</span>
+        <input type="range" min="0" max="100" value="100" step="1" id="r1c" oninput="manualR1=this.value/100;document.getElementById('r1cv').textContent=this.value+'%'">
+        <span class="cv" id="r1cv">100%</span></div>
+      <div class="cr"><span class="cl">R2 speed</span>
+        <input type="range" min="0" max="100" value="100" step="1" id="r2c" oninput="manualR2=this.value/100;document.getElementById('r2cv').textContent=this.value+'%'">
+        <span class="cv" id="r2cv">100%</span></div>
+      <div style="font-size:9px;color:#4b5563;">drag to override auto-avoidance</div>
+    </div>
+
+    <div class="panel">
+      <div class="pt">avoidance thresholds</div>
+      <div class="cr"><span class="cl">slow zone</span>
+        <input type="range" min="20" max="90" value="50" step="1" id="slowC" oninput="SLOW_Z=this.value/100;document.getElementById('slowv').textContent=(this.value/100).toFixed(2)+'m'">
+        <span class="cv" id="slowv">0.50m</span></div>
+      <div class="cr"><span class="cl">stop zone</span>
+        <input type="range" min="5" max="40" value="20" step="1" id="stopC" oninput="STOP_Z=this.value/100;document.getElementById('stopv').textContent=(this.value/100).toFixed(2)+'m'">
+        <span class="cv" id="stopv">0.20m</span></div>
+      <div class="cr"><span class="cl">yield robot</span>
+        <select id="yieldSel" onchange="YIELD_BOT=this.value">
+          <option value="r2">Robot 2 (red)</option>
+          <option value="r1">Robot 1 (blue)</option>
+          <option value="both">Both stop</option>
+        </select></div>
+    </div>
+
+    <div class="panel"><div class="pt">joints — robot 1</div><div id="j1p"></div></div>
+    <div class="panel"><div class="pt">joints — robot 2</div><div id="j2p"></div></div>
+
+    <div style="padding:8px 13px;">
+      <div style="font-size:9px;color:#6b7280;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;">event log</div>
+      <div id="logW" style="max-height:160px;overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+<script>
+let SLOW_Z=0.50,STOP_Z=0.20,RESUME_Z=0.65,YIELD_BOT='r2';
+let manualR1=null,manualR2=null;
+const WP1=[[0,-1.57,0,-1.57,0,0],[0,-1.57,1.0,-1.57,0,0],[0,-1.2,1.8,-2.15,0,0],[0,-0.9,2.2,-2.87,0,0]];
+const WP2=[[3.14,-1.57,0,-1.57,0,0],[3.14,-1.57,1.0,-1.57,0,0],[3.14,-1.2,1.8,-2.15,0,0],[3.14,-0.9,2.2,-2.87,0,0]];
+const JN=['pan','lift','elbow','w1','w2','w3'];
+const SEG=5.0,RATE=50;
+let r1wp=0,r1t=0,r2wp=0,r2t=0,r1spd=1,r2spd=1;
+let state='IDLE',paused=true,simDone=false,t0=null,resumeTimer=0;
+const logs=[];
+let rosMode=false,rosJoints1=null,rosJoints2=null,rosStatus=null;
+const R1_JOINTS=['robot1_shoulder_pan_joint','robot1_shoulder_lift_joint','robot1_elbow_joint','robot1_wrist_1_joint','robot1_wrist_2_joint','robot1_wrist_3_joint'];
+const R2_JOINTS=['robot2_shoulder_pan_joint','robot2_shoulder_lift_joint','robot2_elbow_joint','robot2_wrist_1_joint','robot2_wrist_2_joint','robot2_wrist_3_joint'];
+
+function lerp(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
+function getA(wps,wi,ti){if(wi>=wps.length-1)return wps[wps.length-1];return lerp(wps[wi],wps[wi+1],ti);}
+function fk(a,bx){const L1=0.425,L2=0.392,L3=0.12,c=Math.cos,s=Math.sin,pan=a[0],lift=a[1],el=a[2],w1=a[3];const reach=L1*c(lift)+L2*c(lift+el)+L3*c(lift+el+w1);return{x:bx+c(pan)*reach,y:s(pan)*reach,z:0.78+L1*s(-lift)+L2*s(-(lift+el))+L3*s(-(lift+el+w1))};}
+function d3(p1,p2){return Math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2+(p1.z-p2.z)**2);}
+
+function addLog(tag,col,msg){const now=t0?((Date.now()-t0)/1000).toFixed(1)+'s':'0.0s';logs.unshift({tag,col,msg,now});const w=document.getElementById('logW');w.innerHTML=logs.slice(0,30).map(e=>`<div class="li"><span class="lt">${e.now}</span><span class="ltag" style="background:${e.col}22;color:${e.col};border:1px solid ${e.col}44;">${e.tag}</span><span class="lm">${e.msg}</span></div>`).join('');}
+
+function setState(s){
+  state=s;
+  const cols={FREE:'#45b87c',SLOWING:'#f0a030',STOPPED:'#e05a5a',RESUMING:'#4a90d9',IDLE:'#6b7280',DONE:'#45b87c'};
+  const c=cols[s]||'#45b87c';
+  ['kState','hdrBadge','stateOv'].forEach(id=>{const el=document.getElementById(id);el.textContent=s;el.style.color=c;});
+  document.getElementById('hdrBadge').style.background=c+'18';document.getElementById('hdrBadge').style.borderColor=c+'55';
+  document.getElementById('hdrDot').style.background=c;
+  const map={FREE:0,SLOWING:1,STOPPED:2,RESUMING:3,DONE:4};
+  ['ss0','ss1','ss2','ss3','ss4'].forEach((id,i)=>{document.getElementById(id).style.background=i===(map[s]??-1)?'rgba(255,255,255,.07)':'transparent';document.getElementById(id).style.opacity=i===(map[s]??0)?'1':'0.4';});
+}
+
+function updateSpUI(s1,s2){
+  [[s1,'sb1','sv1'],[s2,'sb2','sv2']].forEach(([s,bid,vid])=>{
+    const p=Math.round(s*100);const c=p===0?'#e05a5a':p<80?'#f0a030':'#45b87c';
+    document.getElementById(bid).style.width=p+'%';document.getElementById(bid).style.background=c;document.getElementById(vid).textContent=p+'%';
+  });
+}
+
+function renderJ(id,a,col){document.getElementById(id).innerHTML=a.map((v,i)=>{const p=Math.min(100,Math.abs(v)/3.14*100).toFixed(0);return`<div class="jr"><span class="jl">${JN[i]}</span><div class="jb-bg"><div class="jb" style="width:${p}%;background:${col};"></div></div><span class="jv">${v.toFixed(2)}</span></div>`;}).join('');}
+
+const cv=document.getElementById('scene3d');const c2=cv.getContext('2d');
+let _ready=false;
+function redrawCurrent(){const a1=getA(WP1,r1wp,r1t),a2=getA(WP2,r2wp,r2t);const p1=fk(a1,-0.7),p2=fk(a2,0.7);draw3d(a1,a2,p1,p2,d3(p1,p2));renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');}
+function resize(){cv.width=cv.parentElement.clientWidth;cv.height=cv.parentElement.clientHeight;if(_ready)redrawCurrent();}
+resize();new ResizeObserver(resize).observe(cv.parentElement);
+
+function proj(x,y,z){const W=cv.width,H=cv.height;const dy=y+2.2,dz=z-1.6,dx=x;const sc=300/Math.max(1.5,dy);return{sx:W/2+dx*sc,sy:H/2-dz*sc};}
+
+function drawArm(a,bx,mc,dc){
+  const L1=0.425,L2=0.392,L3=0.12,cos=Math.cos,sin=Math.sin;
+  const pan=a[0],lift=a[1],el=a[2],w1=a[3];
+  const pts=[{x:bx,y:0,z:0.78}];
+  pts.push({x:bx+cos(pan)*L1*cos(lift),y:sin(pan)*L1*cos(lift),z:0.78+L1*sin(-lift)});
+  pts.push({x:pts[1].x+cos(pan)*L2*cos(lift+el),y:pts[1].y+sin(pan)*L2*cos(lift+el),z:pts[1].z+L2*sin(-(lift+el))});
+  pts.push({x:pts[2].x+cos(pan)*L3*cos(lift+el+w1),y:pts[2].y+sin(pan)*L3*cos(lift+el+w1),z:pts[2].z+L3*sin(-(lift+el+w1))});
+  const pp=pts.map(p=>proj(p.x,p.y,p.z));
+  c2.beginPath();pp.forEach((p,i)=>i===0?c2.moveTo(p.sx,p.sy):c2.lineTo(p.sx,p.sy));
+  c2.strokeStyle=mc;c2.lineWidth=4;c2.lineJoin='round';c2.stroke();
+  pp.forEach((p,i)=>{c2.beginPath();c2.arc(p.sx,p.sy,i===pp.length-1?6:4,0,Math.PI*2);c2.fillStyle=i===pp.length-1?'#f5d060':dc;c2.fill();});
+  c2.beginPath();c2.arc(pp[0].sx,pp[0].sy,8,0,Math.PI*2);c2.fillStyle=mc;c2.fill();
+  return pts[pts.length-1];
+}
+
+function draw3d(a1,a2,p1,p2,d){
+  const W=cv.width,H=cv.height;
+  c2.clearRect(0,0,W,H);c2.fillStyle='#070910';c2.fillRect(0,0,W,H);
+  c2.strokeStyle='rgba(255,255,255,.04)';c2.lineWidth=.5;
+  for(let x=-1.5;x<=1.5;x+=.25){const a=proj(x,-.6,.01),b=proj(x,.6,.01);c2.beginPath();c2.moveTo(a.sx,a.sy);c2.lineTo(b.sx,b.sy);c2.stroke();}
+  for(let y=-.6;y<=.6;y+=.25){const a=proj(-1.5,y,.01),b=proj(1.5,y,.01);c2.beginPath();c2.moveTo(a.sx,a.sy);c2.lineTo(b.sx,b.sy);c2.stroke();}
+  c2.fillStyle='rgba(80,60,40,.3)';c2.beginPath();[[-0.9,-.45],[.9,-.45],[.9,.45],[-0.9,.45]].forEach(([tx,ty],i)=>{const p=proj(tx,ty,.76);i===0?c2.moveTo(p.sx,p.sy):c2.lineTo(p.sx,p.sy);});c2.closePath();c2.fill();c2.strokeStyle='rgba(120,90,60,.45)';c2.lineWidth=1;c2.stroke();
+  drawArm(a1,-0.7,'#4a90d9','#1a4a7a');drawArm(a2,0.7,'#e05a5a','#7a1a1a');
+  const pe1=proj(p1.x,p1.y,p1.z),pe2=proj(p2.x,p2.y,p2.z);
+  const lc=d<STOP_Z?'#e05a5a':d<SLOW_Z?'#f0a030':'#45b87c';
+  c2.beginPath();c2.moveTo(pe1.sx,pe1.sy);c2.lineTo(pe2.sx,pe2.sy);c2.strokeStyle=lc;c2.lineWidth=1.5;c2.setLineDash([5,4]);c2.stroke();c2.setLineDash([]);
+  if(d<SLOW_Z){[pe1,pe2].forEach(p=>{c2.beginPath();c2.arc(p.sx,p.sy,18,0,Math.PI*2);c2.strokeStyle=lc;c2.lineWidth=1;c2.globalAlpha=.3;c2.stroke();c2.globalAlpha=1;});}
+  [[SLOW_Z,'#f0a03050'],[STOP_Z,'#e05a5a50']].forEach(([z,col])=>{const lp=proj(-z,0,.82),rp=proj(z,0,.82);c2.strokeStyle=col;c2.lineWidth=1;c2.setLineDash([3,4]);c2.beginPath();c2.moveTo(lp.sx,0);c2.lineTo(lp.sx,H);c2.stroke();c2.beginPath();c2.moveTo(rp.sx,0);c2.lineTo(rp.sx,H);c2.stroke();c2.setLineDash([]);});
+  c2.fillStyle=lc;c2.font='bold 11px monospace';c2.textAlign='center';
+  c2.fillText(d.toFixed(3)+'m',(pe1.sx+pe2.sx)/2,(pe1.sy+pe2.sy)/2-10);c2.textAlign='left';
+}
+
+const dc=document.getElementById('distChart').getContext('2d');
+const dCh=new Chart(dc,{type:'line',data:{labels:[],datasets:[{data:[],borderColor:'#4a90d9',backgroundColor:'rgba(74,144,217,.06)',borderWidth:1.5,pointRadius:0,fill:true,tension:.3},{data:[],borderColor:'#f0a030',borderWidth:1,borderDash:[3,3],pointRadius:0},{data:[],borderColor:'#e05a5a',borderWidth:1,borderDash:[3,3],pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,animation:{duration:0},plugins:{legend:{display:false}},scales:{x:{display:false},y:{min:0,max:1.2,ticks:{color:'#6b7280',font:{size:8},maxTicksLimit:4},grid:{color:'rgba(255,255,255,.04)'}}}}});
+
+function simTick(){
+  if(rosMode){
+    // Use real joint positions; fall back to home pose while Gazebo is loading
+    const a1=rosJoints1||WP1[0],a2=rosJoints2||WP2[0];
+    const p1=fk(a1,-0.7),p2=fk(a2,0.7);
+    const dist=rosStatus?rosStatus.distance_m:d3(p1,p2);
+    if(rosStatus&&rosStatus.state!==state){setState(rosStatus.state);}
+    const s1=rosStatus?rosStatus.robot1_speed:1,s2=rosStatus?rosStatus.robot2_speed:1;
+    draw3d(a1,a2,p1,p2,dist);renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(s1,s2);
+    // Mirror actual speeds onto the sliders so the UI stays meaningful
+    const p1v=Math.round(s1*100),p2v=Math.round(s2*100);
+    document.getElementById('r1c').value=p1v;document.getElementById('r1cv').textContent=p1v+'%';
+    document.getElementById('r2c').value=p2v;document.getElementById('r2cv').textContent=p2v+'%';
+    const dc2=dist.toFixed(3)+'m',lc=dist<STOP_Z?'#e05a5a':dist<SLOW_Z?'#f0a030':'#4a90d9';
+    document.getElementById('kDist').textContent=dc2;document.getElementById('kDist').style.color=lc;
+    document.getElementById('distOv').textContent='EE dist: '+dc2;document.getElementById('distOv').style.color=lc;
+    dCh.data.labels.push('');dCh.data.datasets[0].data.push(+dist.toFixed(4));dCh.data.datasets[1].data.push(SLOW_Z);dCh.data.datasets[2].data.push(STOP_Z);
+    if(dCh.data.labels.length>150){dCh.data.labels.shift();dCh.data.datasets.forEach(d=>d.data.shift());}dCh.update();
+    return;
+  }
+  if(paused||simDone)return;
+  const dt=1/RATE;
+  const a1=getA(WP1,r1wp,r1t),a2=getA(WP2,r2wp,r2t);
+  const p1=fk(a1,-0.7),p2=fk(a2,0.7);
+  const dist=d3(p1,p2);
+  let ar1=1,ar2=1;
+  if(state==='FREE'){if(dist<SLOW_Z){setState('SLOWING');addLog('SLOW','#f0a030',`slow zone at ${dist.toFixed(3)}m`);}}
+  else if(state==='SLOWING'){
+    if(dist>=SLOW_Z){setState('FREE');}
+    else if(dist<STOP_Z){setState('STOPPED');addLog('STOP','#e05a5a',`stopped at ${dist.toFixed(3)}m — R1 passing`);}
+    else{const ratio=(dist-STOP_Z)/(SLOW_Z-STOP_Z),sc=0.05+Math.min(1,Math.max(0,ratio))*0.95;if(YIELD_BOT==='r2'||YIELD_BOT==='both')ar2=sc;if(YIELD_BOT==='r1'||YIELD_BOT==='both')ar1=sc;}
+  }
+  else if(state==='STOPPED'){
+    if(YIELD_BOT==='r2'||YIELD_BOT==='both')ar2=0;if(YIELD_BOT==='r1'||YIELD_BOT==='both')ar1=0;
+    if(dist>RESUME_Z){setState('RESUMING');resumeTimer=0;addLog('RESUME','#4a90d9',`clearing at ${dist.toFixed(3)}m`);}
+  }
+  else if(state==='RESUMING'){
+    resumeTimer+=dt;const ramp=Math.min(1,resumeTimer/1.5);
+    if(YIELD_BOT==='r2'||YIELD_BOT==='both')ar2=0.05+ramp*0.95;if(YIELD_BOT==='r1'||YIELD_BOT==='both')ar1=0.05+ramp*0.95;
+    if(resumeTimer>1.5){setState('FREE');addLog('FREE','#45b87c','full speed resumed');}
+  }
+  r1spd=manualR1!==null?manualR1:ar1;r2spd=manualR2!==null?manualR2:ar2;
+  r1t+=(dt/SEG)*r1spd;if(r1t>=1&&r1wp<WP1.length-2){r1wp++;r1t=0;}
+  r2t+=(dt/SEG)*r2spd;if(r2t>=1&&r2wp<WP2.length-2){r2wp++;r2t=0;}
+  if(r1wp>=WP1.length-1&&r2wp>=WP2.length-1){setState('DONE');simDone=true;addLog('DONE','#45b87c','avoidance complete');document.getElementById('hdrDot').style.animation='none';}
+  draw3d(a1,a2,p1,p2,dist);renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(r1spd,r2spd);
+  const dc2=dist.toFixed(3)+'m',lc=dist<STOP_Z?'#e05a5a':dist<SLOW_Z?'#f0a030':'#4a90d9';
+  document.getElementById('kDist').textContent=dc2;document.getElementById('kDist').style.color=lc;
+  document.getElementById('distOv').textContent='EE dist: '+dc2;document.getElementById('distOv').style.color=lc;
+  dCh.data.labels.push('');dCh.data.datasets[0].data.push(+dist.toFixed(4));dCh.data.datasets[1].data.push(SLOW_Z);dCh.data.datasets[2].data.push(STOP_Z);
+  if(dCh.data.labels.length>150){dCh.data.labels.shift();dCh.data.datasets.forEach(d=>d.data.shift());}dCh.update();
+}
+
+function startSim(){if(rosMode){addLog('INFO','#4a90d9','ROS live — scenario runs from orchestrator');return;}if(simDone)return;if(state==='IDLE'){setState('FREE');addLog('START','#45b87c','simulation started');t0=Date.now();}paused=false;document.getElementById('pauseOv').style.display='none';}
+function pauseSim(){if(rosMode){addLog('INFO','#f0a030','ROS live — pause not available from web UI');return;}paused=!paused;document.getElementById('pauseOv').style.display=paused?'flex':'none';}
+function resetSim(){
+  paused=true;simDone=false;r1wp=0;r1t=0;r2wp=0;r2t=0;r1spd=1;r2spd=1;manualR1=null;manualR2=null;resumeTimer=0;t0=null;
+  document.getElementById('r1c').value=100;document.getElementById('r2c').value=100;
+  document.getElementById('r1cv').textContent='100%';document.getElementById('r2cv').textContent='100%';
+  setState('IDLE');logs.length=0;document.getElementById('logW').innerHTML='';
+  dCh.data.labels=[];dCh.data.datasets.forEach(d=>d.data=[]);dCh.update();
+  document.getElementById('pauseOv').style.display='none';document.getElementById('hdrDot').style.animation='p 1.6s infinite';
+  const a1=WP1[0],a2=WP2[0];draw3d(a1,a2,fk(a1,-0.7),fk(a2,0.7),d3(fk(a1,-0.7),fk(a2,0.7)));
+  renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(1,1);addLog('RESET','#6b7280','press Start');
+}
+
+setState('IDLE');resetSim();_ready=true;
+
+function setRosBadge(on){const el=document.getElementById('rosBadge');if(on){el.textContent='ROS: LIVE';el.style.background='rgba(69,184,124,.15)';el.style.color='#45b87c';el.style.borderColor='rgba(69,184,124,.3)';}else{el.textContent='ROS: OFF';el.style.background='rgba(107,114,128,.1)';el.style.color='#6b7280';el.style.borderColor='rgba(107,114,128,.3)';}}
+function initROS(){
+  if(typeof ROSLIB==='undefined'){addLog('WARN','#f0a030','roslibjs not loaded — offline mode only');return;}
+  const wsUrl='ws://'+location.host+'/ws';
+  let _ros=null;
+  function connect(){
+    _ros=new ROSLIB.Ros({url:wsUrl});
+    _ros.on('connection',()=>{
+      addLog('ROS','#45b87c','rosbridge connected — live mode');setRosBadge(true);
+      new ROSLIB.Topic({ros:_ros,name:'/collision_avoidance/status',messageType:'std_msgs/String'})
+        .subscribe(msg=>{try{rosStatus=JSON.parse(msg.data);}catch(e){}});
+      new ROSLIB.Topic({ros:_ros,name:'/joint_states',messageType:'sensor_msgs/JointState'})
+        .subscribe(msg=>{
+          const j1=[],j2=[];
+          R1_JOINTS.forEach(n=>{const i=msg.name.indexOf(n);j1.push(i>=0?msg.position[i]:0);});
+          R2_JOINTS.forEach(n=>{const i=msg.name.indexOf(n);j2.push(i>=0?msg.position[i]:0);});
+          if(msg.name.some(n=>n.startsWith('robot1_')))rosJoints1=j1;
+          if(msg.name.some(n=>n.startsWith('robot2_')))rosJoints2=j2;
+          rosMode=!!(rosJoints1&&rosJoints2);
+        });
+    });
+    _ros.on('error',()=>{
+      rosMode=false;rosJoints1=null;rosJoints2=null;setRosBadge(false);
+      addLog('ROS','#e05a5a','rosbridge unavailable — retrying in 3s');
+      setTimeout(connect,3000);
+    });
+    _ros.on('close',()=>{
+      rosMode=false;rosJoints1=null;rosJoints2=null;setRosBadge(false);
+      setTimeout(connect,3000);
+    });
+  }
+  connect();
+}
+initROS();
+setInterval(simTick,1000/RATE);
+</script>
+</body>
+</html>
