@@ -117,24 +117,30 @@ select{flex:1;background:#161920;border:1px solid rgba(255,255,255,.1);color:#e8
         <button class="btn-r" onclick="resetSim()">&#8635; Reset</button>
       </div>
       <div class="cr"><span class="cl">R1 speed</span>
-        <input type="range" min="0" max="100" value="100" step="1" id="r1c" oninput="manualR1=this.value/100;document.getElementById('r1cv').textContent=this.value+'%'">
+        <input type="range" min="0" max="100" value="100" step="1" id="r1c" oninput="onR1SpeedInput(this.value)">
         <span class="cv" id="r1cv">100%</span></div>
       <div class="cr"><span class="cl">R2 speed</span>
-        <input type="range" min="0" max="100" value="100" step="1" id="r2c" oninput="manualR2=this.value/100;document.getElementById('r2cv').textContent=this.value+'%'">
+        <input type="range" min="0" max="100" value="100" step="1" id="r2c" oninput="onR2SpeedInput(this.value)">
         <span class="cv" id="r2cv">100%</span></div>
+      <div class="cr"><span class="cl">segment</span>
+        <input type="range" min="20" max="120" value="50" step="1" id="segC" oninput="onSegmentInput(this.value)">
+        <span class="cv" id="segv">5.0s</span></div>
       <div style="font-size:9px;color:#4b5563;">drag to override auto-avoidance</div>
     </div>
 
     <div class="panel">
       <div class="pt">avoidance thresholds</div>
       <div class="cr"><span class="cl">slow zone</span>
-        <input type="range" min="20" max="90" value="50" step="1" id="slowC" oninput="SLOW_Z=this.value/100;document.getElementById('slowv').textContent=(this.value/100).toFixed(2)+'m'">
+        <input type="range" min="20" max="90" value="50" step="1" id="slowC" oninput="onSlowInput(this.value)">
         <span class="cv" id="slowv">0.50m</span></div>
       <div class="cr"><span class="cl">stop zone</span>
-        <input type="range" min="5" max="40" value="20" step="1" id="stopC" oninput="STOP_Z=this.value/100;document.getElementById('stopv').textContent=(this.value/100).toFixed(2)+'m'">
+        <input type="range" min="5" max="40" value="20" step="1" id="stopC" oninput="onStopInput(this.value)">
         <span class="cv" id="stopv">0.20m</span></div>
+      <div class="cr"><span class="cl">resume zone</span>
+        <input type="range" min="25" max="120" value="65" step="1" id="resumeC" oninput="onResumeInput(this.value)">
+        <span class="cv" id="resumev">0.65m</span></div>
       <div class="cr"><span class="cl">yield robot</span>
-        <select id="yieldSel" onchange="YIELD_BOT=this.value">
+        <select id="yieldSel" onchange="onYieldChange(this.value)">
           <option value="r2">Robot 2 (red)</option>
           <option value="r1">Robot 1 (blue)</option>
           <option value="both">Both stop</option>
@@ -154,18 +160,74 @@ select{flex:1;background:#161920;border:1px solid rgba(255,255,255,.1);color:#e8
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 <script>
-let SLOW_Z=0.50,STOP_Z=0.20,RESUME_Z=0.65,YIELD_BOT='r2';
+let SLOW_Z=0.50,STOP_Z=0.20,RESUME_Z=0.65,YIELD_BOT='r2',SEG_DUR=5.0;
 let manualR1=null,manualR2=null;
 const WP1=[[0,-1.57,0,-1.57,0,0],[0,-1.57,1.0,-1.57,0,0],[0,-1.2,1.8,-2.15,0,0],[0,-0.9,2.2,-2.87,0,0]];
 const WP2=[[3.14,-1.57,0,-1.57,0,0],[3.14,-1.57,1.0,-1.57,0,0],[3.14,-1.2,1.8,-2.15,0,0],[3.14,-0.9,2.2,-2.87,0,0]];
 const JN=['pan','lift','elbow','w1','w2','w3'];
-const SEG=5.0,RATE=50;
+const RATE=50;
 let r1wp=0,r1t=0,r2wp=0,r2t=0,r1spd=1,r2spd=1;
 let state='IDLE',paused=true,simDone=false,t0=null,resumeTimer=0;
 const logs=[];
 let rosMode=false,rosJoints1=null,rosJoints2=null,rosStatus=null;
+let rosConnected=false,rosScenarioState=null;
+let ros=null,ctrlTopic=null,motionTopic=null,avoidTopic=null,scenarioStateTopic=null;
+let _cfgDebounce=null;
+let _pendingStart=false,_startRetry=null;
 const R1_JOINTS=['robot1_shoulder_pan_joint','robot1_shoulder_lift_joint','robot1_elbow_joint','robot1_wrist_1_joint','robot1_wrist_2_joint','robot1_wrist_3_joint'];
 const R2_JOINTS=['robot2_shoulder_pan_joint','robot2_shoulder_lift_joint','robot2_elbow_joint','robot2_wrist_1_joint','robot2_wrist_2_joint','robot2_wrist_3_joint'];
+
+function rosCmd(action){
+  if(!rosConnected||!ctrlTopic)return false;
+  ctrlTopic.publish(new ROSLIB.Message({data:JSON.stringify({action})}));
+  return true;
+}
+function stopStartRetry(){
+  _pendingStart=false;
+  if(_startRetry){clearInterval(_startRetry);_startRetry=null;}
+}
+function beginStartRetry(){
+  _pendingStart=true;
+  if(_startRetry)return;
+  _startRetry=setInterval(()=>{
+    if(!_pendingStart)return;
+    if(rosScenarioState&&rosScenarioState.running===true){
+      addLog('ACK','#45b87c','scenario is running');
+      stopStartRetry();
+      return;
+    }
+    if(rosConnected)rosCmd('start');
+  },500);
+}
+function publishMotionConfig(){
+  if(!rosConnected||!motionTopic)return;
+  motionTopic.publish(new ROSLIB.Message({data:JSON.stringify({
+    r1_manual_scale:manualR1===null?1.0:manualR1,
+    r2_manual_scale:manualR2===null?1.0:manualR2,
+    segment_duration:SEG_DUR
+  })}));
+}
+function publishAvoidanceConfig(){
+  if(!rosConnected||!avoidTopic)return;
+  const y=YIELD_BOT==='r2'?'robot2':(YIELD_BOT==='r1'?'robot1':'both');
+  avoidTopic.publish(new ROSLIB.Message({data:JSON.stringify({
+    slow_zone_m:SLOW_Z,
+    danger_zone_m:STOP_Z,
+    resume_zone_m:RESUME_Z,
+    yield_robot:y
+  })}));
+}
+function pushConfigsSoon(){
+  clearTimeout(_cfgDebounce);
+  _cfgDebounce=setTimeout(()=>{publishMotionConfig();publishAvoidanceConfig();},120);
+}
+function onR1SpeedInput(v){manualR1=v/100;document.getElementById('r1cv').textContent=v+'%';if(rosConnected)publishMotionConfig();}
+function onR2SpeedInput(v){manualR2=v/100;document.getElementById('r2cv').textContent=v+'%';if(rosConnected)publishMotionConfig();}
+function onSegmentInput(v){SEG_DUR=v/10;document.getElementById('segv').textContent=SEG_DUR.toFixed(1)+'s';if(rosConnected)publishMotionConfig();}
+function onSlowInput(v){SLOW_Z=v/100;if(SLOW_Z<=STOP_Z){SLOW_Z=STOP_Z+0.05;document.getElementById('slowC').value=Math.round(SLOW_Z*100);}if(RESUME_Z<=SLOW_Z){RESUME_Z=SLOW_Z+0.02;document.getElementById('resumeC').value=Math.round(RESUME_Z*100);document.getElementById('resumev').textContent=RESUME_Z.toFixed(2)+'m';}document.getElementById('slowv').textContent=SLOW_Z.toFixed(2)+'m';pushConfigsSoon();}
+function onStopInput(v){STOP_Z=v/100;if(STOP_Z>=SLOW_Z){STOP_Z=Math.max(0.05,SLOW_Z-0.05);document.getElementById('stopC').value=Math.round(STOP_Z*100);}document.getElementById('stopv').textContent=STOP_Z.toFixed(2)+'m';pushConfigsSoon();}
+function onResumeInput(v){RESUME_Z=v/100;if(RESUME_Z<=SLOW_Z){RESUME_Z=SLOW_Z+0.02;document.getElementById('resumeC').value=Math.round(RESUME_Z*100);}document.getElementById('resumev').textContent=RESUME_Z.toFixed(2)+'m';pushConfigsSoon();}
+function onYieldChange(v){YIELD_BOT=v;pushConfigsSoon();}
 
 function lerp(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
 function getA(wps,wi,ti){if(wi>=wps.length-1)return wps[wps.length-1];return lerp(wps[wi],wps[wi+1],ti);}
@@ -246,10 +308,6 @@ function simTick(){
     if(rosStatus&&rosStatus.state!==state){setState(rosStatus.state);}
     const s1=rosStatus?rosStatus.robot1_speed:1,s2=rosStatus?rosStatus.robot2_speed:1;
     draw3d(a1,a2,p1,p2,dist);renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(s1,s2);
-    // Mirror actual speeds onto the sliders so the UI stays meaningful
-    const p1v=Math.round(s1*100),p2v=Math.round(s2*100);
-    document.getElementById('r1c').value=p1v;document.getElementById('r1cv').textContent=p1v+'%';
-    document.getElementById('r2c').value=p2v;document.getElementById('r2cv').textContent=p2v+'%';
     const dc2=dist.toFixed(3)+'m',lc=dist<STOP_Z?'#e05a5a':dist<SLOW_Z?'#f0a030':'#4a90d9';
     document.getElementById('kDist').textContent=dc2;document.getElementById('kDist').style.color=lc;
     document.getElementById('distOv').textContent='EE dist: '+dc2;document.getElementById('distOv').style.color=lc;
@@ -279,8 +337,8 @@ function simTick(){
     if(resumeTimer>1.5){setState('FREE');addLog('FREE','#45b87c','full speed resumed');}
   }
   r1spd=manualR1!==null?manualR1:ar1;r2spd=manualR2!==null?manualR2:ar2;
-  r1t+=(dt/SEG)*r1spd;if(r1t>=1&&r1wp<WP1.length-2){r1wp++;r1t=0;}
-  r2t+=(dt/SEG)*r2spd;if(r2t>=1&&r2wp<WP2.length-2){r2wp++;r2t=0;}
+  r1t+=(dt/SEG_DUR)*r1spd;if(r1t>=1&&r1wp<WP1.length-2){r1wp++;r1t=0;}
+  r2t+=(dt/SEG_DUR)*r2spd;if(r2t>=1&&r2wp<WP2.length-2){r2wp++;r2t=0;}
   if(r1wp>=WP1.length-1&&r2wp>=WP2.length-1){setState('DONE');simDone=true;addLog('DONE','#45b87c','avoidance complete');document.getElementById('hdrDot').style.animation='none';}
   draw3d(a1,a2,p1,p2,dist);renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(r1spd,r2spd);
   const dc2=dist.toFixed(3)+'m',lc=dist<STOP_Z?'#e05a5a':dist<SLOW_Z?'#f0a030':'#4a90d9';
@@ -290,17 +348,48 @@ function simTick(){
   if(dCh.data.labels.length>150){dCh.data.labels.shift();dCh.data.datasets.forEach(d=>d.data.shift());}dCh.update();
 }
 
-function startSim(){if(rosMode){addLog('INFO','#4a90d9','ROS live — scenario runs from orchestrator');return;}if(simDone)return;if(state==='IDLE'){setState('FREE');addLog('START','#45b87c','simulation started');t0=Date.now();}paused=false;document.getElementById('pauseOv').style.display='none';}
-function pauseSim(){if(rosMode){addLog('INFO','#f0a030','ROS live — pause not available from web UI');return;}paused=!paused;document.getElementById('pauseOv').style.display=paused?'flex':'none';}
+function startSim(){
+  if(rosConnected){
+    if(rosCmd('start')){
+      addLog('CMD','#45b87c','start command sent');
+      t0=Date.now();
+      beginStartRetry();
+    }
+    return;
+  }
+  if(simDone)return;
+  if(state==='IDLE'){setState('FREE');addLog('START','#45b87c','simulation started');t0=Date.now();}
+  paused=false;document.getElementById('pauseOv').style.display='none';
+}
+function pauseSim(){
+  if(rosConnected){
+    const action=(rosScenarioState&&rosScenarioState.paused)?'resume':'pause';
+    if(rosCmd(action)){addLog('CMD','#f0a030',action+' command sent');}
+    if(action==='resume')beginStartRetry();
+    if(action==='pause')stopStartRetry();
+    return;
+  }
+  paused=!paused;document.getElementById('pauseOv').style.display=paused?'flex':'none';
+}
 function resetSim(){
+  if(rosConnected){
+    rosCmd('reset');
+    addLog('CMD','#6b7280','reset command sent');
+    stopStartRetry();
+  }
   paused=true;simDone=false;r1wp=0;r1t=0;r2wp=0;r2t=0;r1spd=1;r2spd=1;manualR1=null;manualR2=null;resumeTimer=0;t0=null;
   document.getElementById('r1c').value=100;document.getElementById('r2c').value=100;
   document.getElementById('r1cv').textContent='100%';document.getElementById('r2cv').textContent='100%';
+  document.getElementById('segC').value=50;document.getElementById('segv').textContent='5.0s';SEG_DUR=5.0;
+  document.getElementById('slowC').value=50;document.getElementById('stopC').value=20;document.getElementById('resumeC').value=65;
+  document.getElementById('slowv').textContent='0.50m';document.getElementById('stopv').textContent='0.20m';document.getElementById('resumev').textContent='0.65m';
+  document.getElementById('yieldSel').value='r2';SLOW_Z=0.50;STOP_Z=0.20;RESUME_Z=0.65;YIELD_BOT='r2';
   setState('IDLE');logs.length=0;document.getElementById('logW').innerHTML='';
   dCh.data.labels=[];dCh.data.datasets.forEach(d=>d.data=[]);dCh.update();
   document.getElementById('pauseOv').style.display='none';document.getElementById('hdrDot').style.animation='p 1.6s infinite';
   const a1=WP1[0],a2=WP2[0];draw3d(a1,a2,fk(a1,-0.7),fk(a2,0.7),d3(fk(a1,-0.7),fk(a2,0.7)));
   renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');updateSpUI(1,1);addLog('RESET','#6b7280','press Start');
+  if(rosConnected){publishMotionConfig();publishAvoidanceConfig();}
 }
 
 setState('IDLE');resetSim();_ready=true;
@@ -312,8 +401,18 @@ function initROS(){
   let _ros=null;
   function connect(){
     _ros=new ROSLIB.Ros({url:wsUrl});
+    ros=_ros;
     _ros.on('connection',()=>{
+      rosConnected=true;
       addLog('ROS','#45b87c','rosbridge connected — live mode');setRosBadge(true);
+      ctrlTopic=new ROSLIB.Topic({ros:_ros,name:'/demo/control',messageType:'std_msgs/String'});
+      motionTopic=new ROSLIB.Topic({ros:_ros,name:'/demo/motion_config',messageType:'std_msgs/String'});
+      avoidTopic=new ROSLIB.Topic({ros:_ros,name:'/demo/avoidance_config',messageType:'std_msgs/String'});
+      scenarioStateTopic=new ROSLIB.Topic({ros:_ros,name:'/demo/scenario_state',messageType:'std_msgs/String'});
+      ctrlTopic.advertise();
+      motionTopic.advertise();
+      avoidTopic.advertise();
+
       new ROSLIB.Topic({ros:_ros,name:'/collision_avoidance/status',messageType:'std_msgs/String'})
         .subscribe(msg=>{try{rosStatus=JSON.parse(msg.data);}catch(e){}});
       new ROSLIB.Topic({ros:_ros,name:'/joint_states',messageType:'sensor_msgs/JointState'})
@@ -325,13 +424,31 @@ function initROS(){
           if(msg.name.some(n=>n.startsWith('robot2_')))rosJoints2=j2;
           rosMode=!!(rosJoints1&&rosJoints2);
         });
+      scenarioStateTopic.subscribe(msg=>{
+        try{rosScenarioState=JSON.parse(msg.data);}catch(e){return;}
+        if(rosScenarioState&&rosScenarioState.running===true&&_pendingStart){
+          addLog('ACK','#45b87c','start accepted by backend');
+          stopStartRetry();
+        }
+        if(rosScenarioState.segment_duration){
+          SEG_DUR=Number(rosScenarioState.segment_duration);
+          document.getElementById('segC').value=Math.round(SEG_DUR*10);
+          document.getElementById('segv').textContent=SEG_DUR.toFixed(1)+'s';
+        }
+      });
+      publishMotionConfig();
+      publishAvoidanceConfig();
     });
     _ros.on('error',()=>{
+      rosConnected=false;ros=null;ctrlTopic=null;motionTopic=null;avoidTopic=null;scenarioStateTopic=null;
+      stopStartRetry();
       rosMode=false;rosJoints1=null;rosJoints2=null;setRosBadge(false);
       addLog('ROS','#e05a5a','rosbridge unavailable — retrying in 3s');
       setTimeout(connect,3000);
     });
     _ros.on('close',()=>{
+      rosConnected=false;ros=null;ctrlTopic=null;motionTopic=null;avoidTopic=null;scenarioStateTopic=null;
+      stopStartRetry();
       rosMode=false;rosJoints1=null;rosJoints2=null;setRosBadge(false);
       setTimeout(connect,3000);
     });

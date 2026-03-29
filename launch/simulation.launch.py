@@ -1,27 +1,12 @@
-"""
-simulation.launch.py  —  FIXED
-================================
-Launches:
-  1. Gazebo  (with ur5e_workspace.world)
-  2. robot_state_publisher
-  3. Spawn dual UR5e into Gazebo
-  4. ros2_control controller_manager
-  5. Joint state broadcasters x2
-  6. JointTrajectoryControllers x2
-  7. collision_monitor
-  8. robot1_controller + robot2_controller
-  9. scenario_orchestrator  (delayed 8 s)
-  10. RViz2  (when use_rviz:=true)
-
-Run:
-  ros2 launch ur5e_collision_avoidance simulation.launch.py use_rviz:=true
-"""
+"""Launch the full dual-UR5e Gazebo + web demo."""
 
 import os
+import sys
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import (
     DeclareLaunchArgument,
+        ExecuteProcess,
     IncludeLaunchDescription,
     RegisterEventHandler,
     TimerAction,
@@ -45,9 +30,19 @@ def generate_launch_description():
     avoid_config = os.path.join(pkg, "config",  "collision_avoidance_params.yaml")
     rviz_config  = os.path.join(pkg, "rviz",    "dual_ur5e.rviz")
 
+    # ROS2 Humble Python packages target Python 3.10.
+    # If conda is active (e.g. Python 3.13), rclpy import can fail.
+    ros_py_env = {
+        "PATH": "/usr/bin:/bin:/opt/ros/humble/bin:" + os.environ.get("PATH", ""),
+        "PYTHONPATH": (
+            "/opt/ros/humble/lib/python3.10/site-packages:"
+            "/opt/ros/humble/local/lib/python3.10/dist-packages"
+        ),
+    }
+
     # ── Launch args ────────────────────────────────────────────────
     use_rviz_arg = DeclareLaunchArgument(
-        "use_rviz", default_value="false",
+        "use_rviz", default_value="true",
         description="Launch RViz2")
     gui_arg = DeclareLaunchArgument(
         "gui", default_value="true",
@@ -101,6 +96,7 @@ def generate_launch_description():
                     "-x", "0.0", "-y", "0.0", "-z", "0.0",
                 ],
                 output="screen",
+                additional_env=ros_py_env,
             )
         ],
     )
@@ -111,6 +107,7 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[robot_description, ctrl_config],
         output="screen",
+        additional_env=ros_py_env,
     )
 
     # ── 5-6. Spawners (3 s after ros2_control starts) ─────────────
@@ -120,6 +117,7 @@ def generate_launch_description():
             executable="spawner",
             arguments=[name, "--controller-manager", "/controller_manager"],
             output="screen",
+            additional_env=ros_py_env,
         )
 
     load_controllers = RegisterEventHandler(
@@ -143,18 +141,21 @@ def generate_launch_description():
         name="collision_monitor",
         parameters=[avoid_config],
         output="screen",
+        additional_env=ros_py_env,
     )
     robot1_ctrl = Node(
         package="ur5e_collision_avoidance",
         executable="robot1_controller.py",
         name="robot1_controller",
         output="screen",
+        additional_env=ros_py_env,
     )
     robot2_ctrl = Node(
         package="ur5e_collision_avoidance",
         executable="robot2_controller.py",
         name="robot2_controller",
         output="screen",
+        additional_env=ros_py_env,
     )
 
     # ── 9. Scenario orchestrator (8 s delay) ──────────────────────
@@ -165,8 +166,9 @@ def generate_launch_description():
                 package="ur5e_collision_avoidance",
                 executable="scenario_orchestrator.py",
                 name="scenario_orchestrator",
-                parameters=[avoid_config],
+                parameters=[avoid_config, {"auto_start": False}],
                 output="screen",
+                additional_env=ros_py_env,
             )
         ],
     )
@@ -179,6 +181,28 @@ def generate_launch_description():
         arguments=["-d", rviz_config],
         output="screen",
         condition=IfCondition(use_rviz),
+    )
+
+    # ROS <-> WebSocket bridge used by the HTML dashboard.
+    rosbridge = Node(
+        package="rosbridge_server",
+        executable="rosbridge_websocket",
+        name="rosbridge_websocket",
+        output="screen",
+        parameters=[{"port": 9090, "address": ""}],
+        additional_env=ros_py_env,
+    )
+
+    # HTTP + WS proxy server for the dashboard on localhost:8000.
+    web_server = ExecuteProcess(
+        cmd=[sys.executable, os.path.join(pkg, "rviz", "web_server.py")],
+        output="screen",
+        additional_env={
+            **ros_py_env,
+            "WEB_PORT": "8000",
+            "ROSBRIDGE_URL": "ws://localhost:9090",
+            "RVIZ_DIR": os.path.join(pkg, "rviz"),
+        },
     )
 
     return LaunchDescription([
@@ -194,4 +218,6 @@ def generate_launch_description():
         robot2_ctrl,
         orchestrator,
         rviz2,
+        rosbridge,
+        web_server,
     ])

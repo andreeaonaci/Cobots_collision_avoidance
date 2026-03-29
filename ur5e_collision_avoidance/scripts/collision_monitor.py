@@ -91,11 +91,38 @@ class CollisionMonitor(Node):
         self.pub_r1_spd  = self.create_publisher(Float64, "/collision_avoidance/robot1_speed", 10)
         self.pub_r2_spd  = self.create_publisher(Float64, "/collision_avoidance/robot2_speed", 10)
         self.pub_markers = self.create_publisher(MarkerArray, "/collision_avoidance/markers",  10)
+        self.create_subscription(String, "/demo/avoidance_config", self._on_avoidance_config, 10)
 
         # ── Main timer ────────────────────────────────────────
         period = 1.0 / self.rate
         self.timer = self.create_timer(period, self.monitor_loop)
         self.get_logger().info("CollisionMonitor started. Monitoring at %.0f Hz." % self.rate)
+
+    def _on_avoidance_config(self, msg):
+        """Apply live threshold updates from the web dashboard."""
+        try:
+            cfg = json.loads(msg.data)
+        except Exception:
+            self.get_logger().warn("Invalid /demo/avoidance_config payload")
+            return
+
+        try:
+            if "danger_zone_m" in cfg:
+                self.danger_z = max(0.05, min(1.5, float(cfg["danger_zone_m"])))
+            if "slow_zone_m" in cfg:
+                self.slow_z = max(0.10, min(2.0, float(cfg["slow_zone_m"])))
+            if self.slow_z <= self.danger_z:
+                self.slow_z = self.danger_z + 0.05
+            if "resume_zone_m" in cfg:
+                self.resume_z = max(self.slow_z + 0.02, min(2.5, float(cfg["resume_zone_m"])))
+            else:
+                self.resume_z = max(self.resume_z, self.slow_z + 0.02)
+            if "yield_robot" in cfg:
+                y = str(cfg["yield_robot"]).strip().lower()
+                if y in ("robot1", "robot2", "both"):
+                    self.yield_bot = y
+        except Exception:
+            self.get_logger().warn("Failed to apply live avoidance config")
 
     # ─────────────────────────────────────────────────────────────
     def _get_ee_positions(self):
@@ -174,6 +201,9 @@ class CollisionMonitor(Node):
             if self.yield_bot == "robot2":
                 r1_spd = self.norm_spd   # robot 1 keeps going
                 r2_spd = scale
+            elif self.yield_bot == "both":
+                r1_spd = scale
+                r2_spd = scale
             else:
                 r1_spd = scale
                 r2_spd = self.norm_spd
@@ -182,6 +212,9 @@ class CollisionMonitor(Node):
             if self.yield_bot == "robot2":
                 r1_spd = self.norm_spd   # robot 1 keeps going
                 r2_spd = 0.0             # robot 2 STOPPED
+            elif self.yield_bot == "both":
+                r1_spd = 0.0
+                r2_spd = 0.0
             else:
                 r1_spd = 0.0
                 r2_spd = self.norm_spd
@@ -191,6 +224,9 @@ class CollisionMonitor(Node):
             elapsed = (self.get_clock().now() - self.stop_time).nanoseconds * 1e-9
             ramp = min(1.0, elapsed / self.resume_dly)
             if self.yield_bot == "robot2":
+                r2_spd = self.min_spd + ramp * (self.norm_spd - self.min_spd)
+            elif self.yield_bot == "both":
+                r1_spd = self.min_spd + ramp * (self.norm_spd - self.min_spd)
                 r2_spd = self.min_spd + ramp * (self.norm_spd - self.min_spd)
             else:
                 r1_spd = self.min_spd + ramp * (self.norm_spd - self.min_spd)
@@ -207,6 +243,10 @@ class CollisionMonitor(Node):
             "distance_m":  round(dist, 4),
             "robot1_speed": round(r1_spd, 3),
             "robot2_speed": round(r2_spd, 3),
+            "slow_zone_m": round(self.slow_z, 3),
+            "danger_zone_m": round(self.danger_z, 3),
+            "resume_zone_m": round(self.resume_z, 3),
+            "yield_robot": self.yield_bot,
             "stamp":       self.get_clock().now().nanoseconds,
         }
         smsg = String(); smsg.data = json.dumps(status)
@@ -263,6 +303,56 @@ class CollisionMonitor(Node):
                 sp.color.r, sp.color.g, sp.color.b = 0.2, 0.8, 0.3   # green = normal
             sp.lifetime = Duration(sec=0, nanosec=int(0.1e9))
             ma.markers.append(sp)
+
+        # ── Text: distance label floating above the midpoint ─────
+        mid_x = (p1[0] + p2[0]) / 2
+        mid_y = (p1[1] + p2[1]) / 2
+        mid_z = (p1[2] + p2[2]) / 2 + 0.12
+        txt = Marker()
+        txt.header.frame_id = self.world_f
+        txt.header.stamp = self.get_clock().now().to_msg()
+        txt.ns = "ee_distance_text"; txt.id = 10
+        txt.type = Marker.TEXT_VIEW_FACING
+        txt.action = Marker.ADD
+        txt.pose.position.x = mid_x
+        txt.pose.position.y = mid_y
+        txt.pose.position.z = mid_z
+        txt.pose.orientation.w = 1.0
+        txt.scale.z = 0.06
+        if dist < self.danger_z:
+            txt.color.r, txt.color.g, txt.color.b = 1.0, 0.2, 0.2
+        elif dist < self.slow_z:
+            txt.color.r, txt.color.g, txt.color.b = 1.0, 0.7, 0.0
+        else:
+            txt.color.r, txt.color.g, txt.color.b = 0.3, 1.0, 0.4
+        txt.color.a = 1.0
+        txt.text = f"{dist:.3f} m"
+        txt.lifetime = Duration(sec=0, nanosec=int(0.15e9))
+        ma.markers.append(txt)
+
+        # ── Text: state label just above the distance label ───────
+        state_col = {
+            "FREE":     (0.3, 1.0, 0.4),
+            "SLOWING":  (1.0, 0.7, 0.0),
+            "STOPPED":  (1.0, 0.2, 0.2),
+            "RESUMING": (0.3, 0.6, 1.0),
+        }.get(self.state, (0.7, 0.7, 0.7))
+        stxt = Marker()
+        stxt.header.frame_id = self.world_f
+        stxt.header.stamp = self.get_clock().now().to_msg()
+        stxt.ns = "state_text"; stxt.id = 20
+        stxt.type = Marker.TEXT_VIEW_FACING
+        stxt.action = Marker.ADD
+        stxt.pose.position.x = mid_x
+        stxt.pose.position.y = mid_y
+        stxt.pose.position.z = mid_z + 0.10
+        stxt.pose.orientation.w = 1.0
+        stxt.scale.z = 0.07
+        stxt.color.r, stxt.color.g, stxt.color.b = state_col
+        stxt.color.a = 1.0
+        stxt.text = self.state
+        stxt.lifetime = Duration(sec=0, nanosec=int(0.15e9))
+        ma.markers.append(stxt)
 
         self.pub_markers.publish(ma)
 

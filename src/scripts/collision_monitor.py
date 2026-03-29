@@ -264,6 +264,56 @@ class CollisionMonitor(Node):
             sp.lifetime = Duration(sec=0, nanosec=int(0.1e9))
             ma.markers.append(sp)
 
+        # ── Text: distance label mid-way between EEs ─────────────
+        mid_x = (p1[0] + p2[0]) / 2
+        mid_y = (p1[1] + p2[1]) / 2
+        mid_z = (p1[2] + p2[2]) / 2 + 0.12   # slightly above the line
+        txt = Marker()
+        txt.header.frame_id = self.world_f
+        txt.header.stamp = self.get_clock().now().to_msg()
+        txt.ns = "ee_distance_text"; txt.id = 10
+        txt.type = Marker.TEXT_VIEW_FACING
+        txt.action = Marker.ADD
+        txt.pose.position.x = mid_x
+        txt.pose.position.y = mid_y
+        txt.pose.position.z = mid_z
+        txt.pose.orientation.w = 1.0
+        txt.scale.z = 0.06   # text height in metres
+        if dist < self.danger_z:
+            txt.color.r, txt.color.g, txt.color.b = 1.0, 0.2, 0.2
+        elif dist < self.slow_z:
+            txt.color.r, txt.color.g, txt.color.b = 1.0, 0.7, 0.0
+        else:
+            txt.color.r, txt.color.g, txt.color.b = 0.3, 1.0, 0.4
+        txt.color.a = 1.0
+        txt.text = f"{dist:.3f} m"
+        txt.lifetime = Duration(sec=0, nanosec=int(0.15e9))
+        ma.markers.append(txt)
+
+        # ── Text: state label above robot 1 base ─────────────────
+        state_col = {
+            "FREE":     (0.3, 1.0, 0.4),
+            "SLOWING":  (1.0, 0.7, 0.0),
+            "STOPPED":  (1.0, 0.2, 0.2),
+            "RESUMING": (0.3, 0.6, 1.0),
+        }.get(self.state, (0.7, 0.7, 0.7))
+        stxt = Marker()
+        stxt.header.frame_id = self.world_f
+        stxt.header.stamp = self.get_clock().now().to_msg()
+        stxt.ns = "state_text"; stxt.id = 20
+        stxt.type = Marker.TEXT_VIEW_FACING
+        stxt.action = Marker.ADD
+        stxt.pose.position.x = (p1[0] + p2[0]) / 2
+        stxt.pose.position.y = (p1[1] + p2[1]) / 2
+        stxt.pose.position.z = mid_z + 0.10
+        stxt.pose.orientation.w = 1.0
+        stxt.scale.z = 0.07
+        stxt.color.r, stxt.color.g, stxt.color.b = state_col
+        stxt.color.a = 1.0
+        stxt.text = self.state
+        stxt.lifetime = Duration(sec=0, nanosec=int(0.15e9))
+        ma.markers.append(stxt)
+
         self.pub_markers.publish(ma)
 
     # ─────────────────────────────────────────────────────────────
