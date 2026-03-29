@@ -43,4 +43,25 @@
     <origin xyz="1 0 0" rpy="0 0 0"/>
   </xacro:ur_robot>
 
+  <!-- ============================== -->
+  <!-- Inner-side safety sensor frames -->
+  <!-- ============================== -->
+  <!--
+    Both sensors use identical offsets to maintain the same orientation.
+    Robot 1 and Robot 2 both face the same direction (Z rotation = 0).
+  -->
+  <link name="robot1_inner_sensor"/>
+  <joint name="robot1_inner_sensor_joint" type="fixed">
+    <parent link="robot1_tool0"/>
+    <child link="robot1_inner_sensor"/>
+    <origin xyz="0 0.10 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="robot2_inner_sensor"/>
+  <joint name="robot2_inner_sensor_joint" type="fixed">
+    <parent link="robot2_tool0"/>
+    <child link="robot2_inner_sensor"/>
+    <origin xyz="0 0.10 0" rpy="0 0 0"/>
+  </joint>
+
 </robot>

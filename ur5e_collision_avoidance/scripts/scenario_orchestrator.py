@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 """
-scenario_orchestrator.py — CORRECT OPPOSING MOTION
-====================================================
-Robot 1 (left,  base yaw=0):    pan=0     → reaches RIGHT toward centre
-Robot 2 (right, base yaw=π):    pan=3.14  → also reaches toward centre
-                                            (opposite pan because base is flipped)
+scenario_orchestrator.py
+========================
+Runs coordinated trajectories for both UR5e robots.
 
-Visual result:
-  R1 ──arm──►        ◄──arm── R2
-         they approach each other
+Important: Robot 2 uses the same pan orientation as Robot 1 so the
+tool/sensor orientation remains consistent before and after Start.
 """
 
 import json
@@ -48,10 +45,8 @@ WAYPOINTS_R1 = [
     [ 0.0,  -0.9,   2.2,  -2.87,  0.0,  0.0],
 ]
 
-# ── Robot 2: base at x=+0.7, yaw=π, reaches toward -X (centre) ──
-# Because the base is rotated 180°:
-#   pan = 3.14  →  arm faces -X  (toward Robot 1)
-# Lift/elbow/wrist are SAME as R1 (symmetric reach)
+# ── Robot 2 keeps same orientation convention as Robot 1 ─────────
+# Mirror Robot 1 by using pan=pi so both robots approach each other.
 WAYPOINTS_R2 = [
     # Home
     [ 3.14,  -1.57,  0.0,  -1.57,  0.0,  0.0],

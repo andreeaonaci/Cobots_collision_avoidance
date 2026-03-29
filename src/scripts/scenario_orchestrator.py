@@ -62,8 +62,8 @@ JOINTS_R2 = [
 # ── Waypoint sequences ────────────────────────────────────────────
 # Each row = [pan, lift, elbow, wrist1, wrist2, wrist3]  (radians)
 #
-# Robot 1 starts at x = -0.70 and extends its end-effector toward +X (table centre).
-# Robot 2 starts at x = +0.70 (base rotated 180°), also extends toward table centre.
+# Robot 1: pan = 0.0 → reaches toward +X (toward robot 2)
+# Robot 2: pan = π (180°) → reaches toward -X (toward robot 1)
 # Both end-effectors therefore approach each other along the X axis.
 
 WAYPOINTS_R1 = [
@@ -80,11 +80,12 @@ WAYPOINTS_R1 = [
 ]
 
 WAYPOINTS_R2 = [
-    [0.0,      -1.5708,  1.5708,  -1.5708,  -1.5708,  0.0],
-    [0.0,      -1.2,     1.3,     -1.3,     -1.5708,  0.0],
-    [0.0,      -0.85,    1.0,     -1.0,     -1.5708,  0.0],
-    [0.0,      -0.55,    0.70,    -0.70,    -1.5708,  0.0],
-    [0.0,      -0.30,    0.45,    -0.45,    -1.5708,  0.0],
+    # Mirror of robot 1 — opposite pan to move toward each other
+    [3.14159,  -1.5708,  1.5708,  -1.5708,  -1.5708,  0.0],
+    [3.14159,  -1.2,     1.3,     -1.3,     -1.5708,  0.0],
+    [3.14159,  -0.85,    1.0,     -1.0,     -1.5708,  0.0],
+    [3.14159,  -0.55,    0.70,    -0.70,    -1.5708,  0.0],
+    [3.14159,  -0.30,    0.45,    -0.45,    -1.5708,  0.0],
 ]
 
 SEGMENT_DURATION = 4.0   # seconds per waypoint segment at full speed

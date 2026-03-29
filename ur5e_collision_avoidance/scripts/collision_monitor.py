@@ -209,15 +209,10 @@ class CollisionMonitor(Node):
                 r2_spd = self.norm_spd
 
         elif self.state == State.STOPPED:
-            if self.yield_bot == "robot2":
-                r1_spd = self.norm_spd   # robot 1 keeps going
-                r2_spd = 0.0             # robot 2 STOPPED
-            elif self.yield_bot == "both":
-                r1_spd = 0.0
-                r2_spd = 0.0
-            else:
-                r1_spd = 0.0
-                r2_spd = self.norm_spd
+            # Safety-first behavior: once inside danger zone, stop both robots.
+            # This avoids relying on a single-yield strategy near collision.
+            r1_spd = 0.0
+            r2_spd = 0.0
 
         elif self.state == State.RESUMING:
             # Ramp back up gently
