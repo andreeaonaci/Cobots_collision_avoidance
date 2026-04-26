@@ -11,8 +11,8 @@ collision_monitor:
 
     # ── Distance thresholds (end-effector to end-effector, metres) ──
     danger_zone_m:    0.20         # Hard stop threshold
-    slow_zone_m:      0.50         # Begin speed reduction
-    resume_zone_m:    0.60         # Safe to resume after stop
+    slow_zone_m:      0.60         # Begin speed reduction (minimum allowed)
+    resume_zone_m:    0.70         # Safe to resume after stop
 
     # ── Speed scaling ─────────────────────────────────────────
     #    Linear ramp from 1.0 (at slow_zone_m) to min_speed_factor (at danger_zone_m)

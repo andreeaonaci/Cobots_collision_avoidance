@@ -40,7 +40,8 @@
     use_fake_hardware="true"
     generate_ros2_control_tag="true"
   >
-    <origin xyz="1 0 0" rpy="0 0 0"/>
+    <!-- Base rotated 180° so Robot 2 faces Robot 1 from spawn — no runtime pan spin needed -->
+    <origin xyz="1 0 0" rpy="0 0 3.14159"/>
   </xacro:ur_robot>
 
   <!-- ============================== -->

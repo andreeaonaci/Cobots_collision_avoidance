@@ -45,17 +45,16 @@ WAYPOINTS_R1 = [
     [ 0.0,  -0.9,   2.2,  -2.87,  0.0,  0.0],
 ]
 
-# ── Robot 2 keeps same orientation convention as Robot 1 ─────────
-# Mirror Robot 1 by using pan=pi so both robots approach each other.
+# ── Robot 2: base is pre-rotated 180° in URDF, so pan=0 faces Robot 1 ──
 WAYPOINTS_R2 = [
     # Home
-    [ 3.14,  -1.57,  0.0,  -1.57,  0.0,  0.0],
+    [ 0.0,  -1.57,  0.0,  -1.57,  0.0,  0.0],
     # Begin reach
-    [ 3.14,  -1.57,  1.0,  -1.57,  0.0,  0.0],
+    [ 0.0,  -1.57,  1.0,  -1.57,  0.0,  0.0],
     # Mid reach
-    [ 3.14,  -1.2,   1.8,  -2.15,  0.0,  0.0],
+    [ 0.0,  -1.2,   1.8,  -2.15,  0.0,  0.0],
     # Full reach toward centre
-    [ 3.14,  -0.9,   2.2,  -2.87,  0.0,  0.0],
+    [ 0.0,  -0.9,   2.2,  -2.87,  0.0,  0.0],
 ]
 
 SEGMENT_DURATION = 5.0

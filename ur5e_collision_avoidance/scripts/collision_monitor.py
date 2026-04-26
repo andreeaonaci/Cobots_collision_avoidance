@@ -49,8 +49,8 @@ class CollisionMonitor(Node):
         # ── Parameters ────────────────────────────────────────
         self.declare_parameter("monitor_rate_hz",    50.0)
         self.declare_parameter("danger_zone_m",       0.20)
-        self.declare_parameter("slow_zone_m",         0.50)
-        self.declare_parameter("resume_zone_m",       0.60)
+        self.declare_parameter("slow_zone_m",         0.60)
+        self.declare_parameter("resume_zone_m",       0.70)
         self.declare_parameter("min_speed_factor",    0.05)
         self.declare_parameter("normal_speed_factor", 1.0)
         self.declare_parameter("yield_robot",         "robot2")
@@ -110,7 +110,7 @@ class CollisionMonitor(Node):
             if "danger_zone_m" in cfg:
                 self.danger_z = max(0.05, min(1.5, float(cfg["danger_zone_m"])))
             if "slow_zone_m" in cfg:
-                self.slow_z = max(0.10, min(2.0, float(cfg["slow_zone_m"])))
+                self.slow_z = max(0.60, min(2.0, float(cfg["slow_zone_m"])))
             if self.slow_z <= self.danger_z:
                 self.slow_z = self.danger_z + 0.05
             if "resume_zone_m" in cfg:

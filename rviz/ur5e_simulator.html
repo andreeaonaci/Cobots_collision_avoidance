@@ -131,14 +131,14 @@ select{flex:1;background:#161920;border:1px solid rgba(255,255,255,.1);color:#e8
     <div class="panel">
       <div class="pt">avoidance thresholds</div>
       <div class="cr"><span class="cl">slow zone</span>
-        <input type="range" min="20" max="90" value="50" step="1" id="slowC" oninput="onSlowInput(this.value)">
-        <span class="cv" id="slowv">0.50m</span></div>
+        <input type="range" min="60" max="90" value="60" step="1" id="slowC" oninput="onSlowInput(this.value)">
+        <span class="cv" id="slowv">0.60m</span></div>
       <div class="cr"><span class="cl">stop zone</span>
         <input type="range" min="5" max="40" value="20" step="1" id="stopC" oninput="onStopInput(this.value)">
         <span class="cv" id="stopv">0.20m</span></div>
       <div class="cr"><span class="cl">resume zone</span>
-        <input type="range" min="25" max="120" value="65" step="1" id="resumeC" oninput="onResumeInput(this.value)">
-        <span class="cv" id="resumev">0.65m</span></div>
+        <input type="range" min="62" max="120" value="70" step="1" id="resumeC" oninput="onResumeInput(this.value)">
+        <span class="cv" id="resumev">0.70m</span></div>
       <div class="cr"><span class="cl">yield robot</span>
         <select id="yieldSel" onchange="onYieldChange(this.value)">
           <option value="r2">Robot 2 (red)</option>
@@ -160,10 +160,10 @@ select{flex:1;background:#161920;border:1px solid rgba(255,255,255,.1);color:#e8
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 <script>
-let SLOW_Z=0.50,STOP_Z=0.20,RESUME_Z=0.65,YIELD_BOT='r2',SEG_DUR=5.0;
+let SLOW_Z=0.60,STOP_Z=0.20,RESUME_Z=0.70,YIELD_BOT='r2',SEG_DUR=5.0;
 let manualR1=null,manualR2=null;
 const WP1=[[0,-1.57,0,-1.57,0,0],[0,-1.57,1.0,-1.57,0,0],[0,-1.2,1.8,-2.15,0,0],[0,-0.9,2.2,-2.87,0,0]];
-const WP2=[[3.14,-1.57,0,-1.57,0,0],[3.14,-1.57,1.0,-1.57,0,0],[3.14,-1.2,1.8,-2.15,0,0],[3.14,-0.9,2.2,-2.87,0,0]];
+const WP2=[[0,-1.57,0,-1.57,0,0],[0,-1.57,1.0,-1.57,0,0],[0,-1.2,1.8,-2.15,0,0],[0,-0.9,2.2,-2.87,0,0]];
 const JN=['pan','lift','elbow','w1','w2','w3'];
 const RATE=50;
 let r1wp=0,r1t=0,r2wp=0,r2t=0,r1spd=1,r2spd=1;
@@ -224,14 +224,14 @@ function pushConfigsSoon(){
 function onR1SpeedInput(v){manualR1=v/100;document.getElementById('r1cv').textContent=v+'%';if(rosConnected)publishMotionConfig();}
 function onR2SpeedInput(v){manualR2=v/100;document.getElementById('r2cv').textContent=v+'%';if(rosConnected)publishMotionConfig();}
 function onSegmentInput(v){SEG_DUR=v/10;document.getElementById('segv').textContent=SEG_DUR.toFixed(1)+'s';if(rosConnected)publishMotionConfig();}
-function onSlowInput(v){SLOW_Z=v/100;if(SLOW_Z<=STOP_Z){SLOW_Z=STOP_Z+0.05;document.getElementById('slowC').value=Math.round(SLOW_Z*100);}if(RESUME_Z<=SLOW_Z){RESUME_Z=SLOW_Z+0.02;document.getElementById('resumeC').value=Math.round(RESUME_Z*100);document.getElementById('resumev').textContent=RESUME_Z.toFixed(2)+'m';}document.getElementById('slowv').textContent=SLOW_Z.toFixed(2)+'m';pushConfigsSoon();}
+function onSlowInput(v){SLOW_Z=Math.max(0.60,v/100);document.getElementById('slowC').value=Math.round(SLOW_Z*100);if(SLOW_Z<=STOP_Z){SLOW_Z=STOP_Z+0.05;document.getElementById('slowC').value=Math.round(SLOW_Z*100);}if(RESUME_Z<=SLOW_Z){RESUME_Z=SLOW_Z+0.02;document.getElementById('resumeC').value=Math.round(RESUME_Z*100);document.getElementById('resumev').textContent=RESUME_Z.toFixed(2)+'m';}document.getElementById('slowv').textContent=SLOW_Z.toFixed(2)+'m';pushConfigsSoon();}
 function onStopInput(v){STOP_Z=v/100;if(STOP_Z>=SLOW_Z){STOP_Z=Math.max(0.05,SLOW_Z-0.05);document.getElementById('stopC').value=Math.round(STOP_Z*100);}document.getElementById('stopv').textContent=STOP_Z.toFixed(2)+'m';pushConfigsSoon();}
 function onResumeInput(v){RESUME_Z=v/100;if(RESUME_Z<=SLOW_Z){RESUME_Z=SLOW_Z+0.02;document.getElementById('resumeC').value=Math.round(RESUME_Z*100);}document.getElementById('resumev').textContent=RESUME_Z.toFixed(2)+'m';pushConfigsSoon();}
 function onYieldChange(v){YIELD_BOT=v;pushConfigsSoon();}
 
 function lerp(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
 function getA(wps,wi,ti){if(wi>=wps.length-1)return wps[wps.length-1];return lerp(wps[wi],wps[wi+1],ti);}
-function fk(a,bx){const L1=0.425,L2=0.392,L3=0.12,c=Math.cos,s=Math.sin,pan=a[0],lift=a[1],el=a[2],w1=a[3];const reach=L1*c(lift)+L2*c(lift+el)+L3*c(lift+el+w1);return{x:bx+c(pan)*reach,y:s(pan)*reach,z:0.78+L1*s(-lift)+L2*s(-(lift+el))+L3*s(-(lift+el+w1))};}
+function fk(a,bx,baseYaw=0){const L1=0.425,L2=0.392,L3=0.12,c=Math.cos,s=Math.sin,pan=a[0]+baseYaw,lift=a[1],el=a[2],w1=a[3];const reach=L1*c(lift)+L2*c(lift+el)+L3*c(lift+el+w1);return{x:bx+c(pan)*reach,y:s(pan)*reach,z:0.78+L1*s(-lift)+L2*s(-(lift+el))+L3*s(-(lift+el+w1))};}
 function d3(p1,p2){return Math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2+(p1.z-p2.z)**2);}
 
 function addLog(tag,col,msg){const now=t0?((Date.now()-t0)/1000).toFixed(1)+'s':'0.0s';logs.unshift({tag,col,msg,now});const w=document.getElementById('logW');w.innerHTML=logs.slice(0,30).map(e=>`<div class="li"><span class="lt">${e.now}</span><span class="ltag" style="background:${e.col}22;color:${e.col};border:1px solid ${e.col}44;">${e.tag}</span><span class="lm">${e.msg}</span></div>`).join('');}
@@ -258,15 +258,15 @@ function renderJ(id,a,col){document.getElementById(id).innerHTML=a.map((v,i)=>{c
 
 const cv=document.getElementById('scene3d');const c2=cv.getContext('2d');
 let _ready=false;
-function redrawCurrent(){const a1=getA(WP1,r1wp,r1t),a2=getA(WP2,r2wp,r2t);const p1=fk(a1,-0.7),p2=fk(a2,0.7);draw3d(a1,a2,p1,p2,d3(p1,p2));renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');}
+function redrawCurrent(){const a1=getA(WP1,r1wp,r1t),a2=getA(WP2,r2wp,r2t);const p1=fk(a1,-0.7),p2=fk(a2,0.7,Math.PI);draw3d(a1,a2,p1,p2,d3(p1,p2));renderJ('j1p',a1,'#4a90d9');renderJ('j2p',a2,'#e05a5a');}
 function resize(){cv.width=cv.parentElement.clientWidth;cv.height=cv.parentElement.clientHeight;if(_ready)redrawCurrent();}
 resize();new ResizeObserver(resize).observe(cv.parentElement);
 
 function proj(x,y,z){const W=cv.width,H=cv.height;const dy=y+2.2,dz=z-1.6,dx=x;const sc=300/Math.max(1.5,dy);return{sx:W/2+dx*sc,sy:H/2-dz*sc};}
 
-function drawArm(a,bx,mc,dc){
+function drawArm(a,bx,mc,dc,baseYaw=0){
   const L1=0.425,L2=0.392,L3=0.12,cos=Math.cos,sin=Math.sin;
-  const pan=a[0],lift=a[1],el=a[2],w1=a[3];
+  const pan=a[0]+baseYaw,lift=a[1],el=a[2],w1=a[3];
   const pts=[{x:bx,y:0,z:0.78}];
   pts.push({x:bx+cos(pan)*L1*cos(lift),y:sin(pan)*L1*cos(lift),z:0.78+L1*sin(-lift)});
   pts.push({x:pts[1].x+cos(pan)*L2*cos(lift+el),y:pts[1].y+sin(pan)*L2*cos(lift+el),z:pts[1].z+L2*sin(-(lift+el))});
@@ -286,7 +286,7 @@ function draw3d(a1,a2,p1,p2,d){
   for(let x=-1.5;x<=1.5;x+=.25){const a=proj(x,-.6,.01),b=proj(x,.6,.01);c2.beginPath();c2.moveTo(a.sx,a.sy);c2.lineTo(b.sx,b.sy);c2.stroke();}
   for(let y=-.6;y<=.6;y+=.25){const a=proj(-1.5,y,.01),b=proj(1.5,y,.01);c2.beginPath();c2.moveTo(a.sx,a.sy);c2.lineTo(b.sx,b.sy);c2.stroke();}
   c2.fillStyle='rgba(80,60,40,.3)';c2.beginPath();[[-0.9,-.45],[.9,-.45],[.9,.45],[-0.9,.45]].forEach(([tx,ty],i)=>{const p=proj(tx,ty,.76);i===0?c2.moveTo(p.sx,p.sy):c2.lineTo(p.sx,p.sy);});c2.closePath();c2.fill();c2.strokeStyle='rgba(120,90,60,.45)';c2.lineWidth=1;c2.stroke();
-  drawArm(a1,-0.7,'#4a90d9','#1a4a7a');drawArm(a2,0.7,'#e05a5a','#7a1a1a');
+  drawArm(a1,-0.7,'#4a90d9','#1a4a7a');drawArm(a2,0.7,'#e05a5a','#7a1a1a',Math.PI);
   const pe1=proj(p1.x,p1.y,p1.z),pe2=proj(p2.x,p2.y,p2.z);
   const lc=d<STOP_Z?'#e05a5a':d<SLOW_Z?'#f0a030':'#45b87c';
   c2.beginPath();c2.moveTo(pe1.sx,pe1.sy);c2.lineTo(pe2.sx,pe2.sy);c2.strokeStyle=lc;c2.lineWidth=1.5;c2.setLineDash([5,4]);c2.stroke();c2.setLineDash([]);
@@ -303,7 +303,7 @@ function simTick(){
   if(rosMode){
     // Use real joint positions; fall back to home pose while Gazebo is loading
     const a1=rosJoints1||WP1[0],a2=rosJoints2||WP2[0];
-    const p1=fk(a1,-0.7),p2=fk(a2,0.7);
+    const p1=fk(a1,-0.7),p2=fk(a2,0.7,Math.PI);
     const dist=rosStatus?rosStatus.distance_m:d3(p1,p2);
     if(rosStatus&&rosStatus.state!==state){setState(rosStatus.state);}
     const s1=rosStatus?rosStatus.robot1_speed:1,s2=rosStatus?rosStatus.robot2_speed:1;
@@ -318,7 +318,7 @@ function simTick(){
   if(paused||simDone)return;
   const dt=1/RATE;
   const a1=getA(WP1,r1wp,r1t),a2=getA(WP2,r2wp,r2t);
-  const p1=fk(a1,-0.7),p2=fk(a2,0.7);
+  const p1=fk(a1,-0.7),p2=fk(a2,0.7,Math.PI);
   const dist=d3(p1,p2);
   let ar1=1,ar2=1;
   if(state==='FREE'){if(dist<SLOW_Z){setState('SLOWING');addLog('SLOW','#f0a030',`slow zone at ${dist.toFixed(3)}m`);}}

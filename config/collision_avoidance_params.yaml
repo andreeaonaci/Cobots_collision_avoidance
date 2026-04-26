@@ -14,8 +14,8 @@ collision_monitor:
     # These are now BODY-to-BODY distances, not EE-to-EE.
     # UR5e link radius is ~0.06m, so 0.15m body clearance = 0.15m threshold.
     danger_zone_m:    0.15    # Stop — links about to touch
-    slow_zone_m:      0.40    # Start slowing — links getting close
-    resume_zone_m:    0.50    # Resume after stop
+    slow_zone_m:      0.60    # Start slowing — minimum allowed value
+    resume_zone_m:    0.70    # Resume after stop
 
     # ── Speed scaling ──────────────────────────────────────────────
     min_speed_factor:    0.02  # Near-zero at danger zone edge
